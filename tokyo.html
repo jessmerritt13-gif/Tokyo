@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>Tokyo — Oct 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --ink:#1a1a18;--ink2:#3d3d38;--ink3:#7a7a72;
+  --paper:#faf9f6;--paper2:#f2f0eb;--paper3:#e8e4dc;
+  --red:#c8392b;--red-light:#fdf0ee;
+  --gold:#b8860b;--gold-light:#fdf8ee;
+  --green:#2d6a4f;--green-light:#eef6f1;
+  --blue:#1a4a7a;--blue-light:#eef3fa;
+}
+body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6;max-width:520px;margin:0 auto;min-height:100vh;padding-bottom:100px}
+
+/* HEADER */
+.hero{padding:48px 24px 32px;border-bottom:1px solid var(--paper3);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;right:-40px;top:-40px;width:200px;height:200px;border-radius:50%;background:var(--paper3);opacity:.5;z-index:0}
+.hero-tag{font-size:11px;letter-spacing:.2em;color:var(--ink3);text-transform:uppercase;margin-bottom:12px;position:relative}
+.hero-title{font-family:'Playfair Display',serif;font-size:44px;font-weight:400;line-height:1.05;color:var(--ink);position:relative;margin-bottom:8px}
+.hero-title em{font-style:italic;color:var(--red)}
+.hero-dates{font-size:13px;color:var(--ink3);position:relative;margin-bottom:20px}
+.hero-bottom{display:flex;align-items:center;justify-content:space-between;position:relative}
+.countdown-pill{background:var(--ink);color:var(--paper);padding:8px 16px;border-radius:100px;font-size:13px;font-weight:500;letter-spacing:.01em}
+.countdown-pill span{font-family:'Playfair Display',serif;font-style:italic;font-size:18px;margin-right:4px}
+.travelers{display:flex;gap:-4px}
+.avatar{width:32px;height:32px;border-radius:50%;border:2px solid var(--paper);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;margin-left:-6px}
+.avatar:first-child{margin-left:0}
+
+/* NAV */
+.nav{display:flex;gap:0;border-bottom:1px solid var(--paper3);position:sticky;top:0;background:var(--paper);z-index:100;padding:0 24px}
+.nav-btn{flex:1;padding:14px 4px;background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);transition:all .2s}
+.nav-btn.on{color:var(--ink);border-bottom-color:var(--ink)}
+
+/* SECTIONS */
+.section{display:none;padding:0 24px}
+.section.on{display:block}
+
+/* ITINERARY */
+.day-card{margin:24px 0;position:relative;padding-left:24px}
+.day-card::before{content:'';position:absolute;left:6px;top:28px;bottom:-24px;width:1px;background:var(--paper3)}
+.day-card:last-child::before{display:none}
+.day-dot{position:absolute;left:0;top:22px;width:13px;height:13px;border-radius:50%;border:2px solid var(--ink);background:var(--paper);z-index:1;transition:all .2s}
+.day-dot.done{background:var(--ink);border-color:var(--ink)}
+.day-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px;cursor:pointer}
+.day-meta{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:4px}
+.day-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:400;color:var(--ink);line-height:1.2}
+.day-icon{font-size:22px;flex-shrink:0;margin-left:8px;margin-top:2px}
+.day-desc{font-size:13px;color:var(--ink3);margin-bottom:12px;line-height:1.6}
+.day-body{display:none}
+.day-body.open{display:block}
+.day-toggle{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);cursor:pointer;display:inline-flex;align-items:center;gap:4px;margin-bottom:12px;padding:0;background:none;border:none;font-family:'DM Sans',sans-serif}
+
+/* TIPS */
+.tips-label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:8px}
+.tip{display:flex;gap:10px;margin-bottom:8px;align-items:flex-start}
+.tip-bullet{width:4px;height:4px;border-radius:50%;background:var(--red);flex-shrink:0;margin-top:7px}
+.tip-text{font-size:13px;color:var(--ink2);line-height:1.5}
+
+/* PLACES */
+.places-label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin:16px 0 8px}
+.place{display:flex;align-items:center;gap:12px;padding:10px 12px;background:var(--paper2);border-radius:8px;margin-bottom:6px}
+.place-pin{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.place-name{font-size:13px;font-weight:500;color:var(--ink)}
+.place-type{font-size:11px;color:var(--ink3)}
+.place-link{margin-left:auto;font-size:11px;color:var(--blue);text-decoration:none;letter-spacing:.04em;text-transform:uppercase}
+
+/* TASKS */
+.task{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--paper3);cursor:pointer}
+.task:last-child{border-bottom:none}
+.task-check{width:18px;height:18px;border-radius:4px;border:1.5px solid var(--paper3);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.task-check.done{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.task-text{font-size:13px;color:var(--ink2);flex:1;line-height:1.4}
+.task-text.done{color:var(--ink3);text-decoration:line-through}
+
+/* NOTES */
+.note-area{width:100%;border:1px solid var(--paper3);border-radius:8px;padding:12px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--ink);background:var(--paper2);resize:none;outline:none;min-height:80px;margin-top:12px;line-height:1.6}
+.note-area::placeholder{color:var(--ink3)}
+.log-btn{display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:8px 16px;border:1px solid var(--paper3);border-radius:100px;background:none;font-family:'DM Sans',sans-serif;font-size:12px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;color:var(--ink2);transition:all .2s}
+.log-btn:active{background:var(--ink);color:var(--paper)}
+.logged-note{background:var(--paper2);border-radius:8px;padding:12px;margin-top:8px}
+.logged-note-text{font-size:13px;color:var(--ink2);line-height:1.5;font-family:'Playfair Display',serif;font-style:italic}
+.logged-note-date{font-size:11px;color:var(--ink3);margin-top:4px}
+
+/* PACKING */
+.pack-section{margin-bottom:28px}
+.pack-section-title{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--paper3)}
+.pack-progress{display:flex;gap:8px;align-items:center;margin-bottom:20px}
+.pack-bar{flex:1;height:3px;background:var(--paper3);border-radius:2px;overflow:hidden}
+.pack-fill{height:100%;background:var(--ink);border-radius:2px;transition:width .4s ease}
+.pack-count{font-size:12px;color:var(--ink3);white-space:nowrap}
+
+/* MAP SECTION */
+.map-placeholder{background:var(--paper2);border:1px solid var(--paper3);border-radius:12px;padding:32px 24px;text-align:center;margin:24px 0}
+.map-title{font-family:'Playfair Display',serif;font-size:20px;margin-bottom:8px;color:var(--ink)}
+.map-sub{font-size:13px;color:var(--ink3);margin-bottom:20px}
+.pin-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px;text-align:left}
+.pin-card{background:var(--paper);border:1px solid var(--paper3);border-radius:8px;padding:12px}
+.pin-card-day{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:4px}
+.pin-card-name{font-size:13px;font-weight:500;color:var(--ink)}
+.pin-card-icon{font-size:18px;margin-bottom:6px}
+.map-open-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:var(--ink);color:var(--paper);border:none;border-radius:100px;font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;text-decoration:none;margin-top:8px}
+
+/* SECTION HEADERS */
+.section-header{padding:28px 0 8px}
+.section-header h2{font-family:'Playfair Display',serif;font-size:28px;font-weight:400;color:var(--ink)}
+.section-header p{font-size:13px;color:var(--ink3);margin-top:4px}
+
+/* ADD CUSTOM PLACE */
+.add-place-form{background:var(--paper2);border-radius:10px;padding:16px;margin-top:12px;display:none}
+.add-place-form.open{display:block}
+.add-input{width:100%;border:1px solid var(--paper3);border-radius:6px;padding:10px 12px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--ink);background:var(--paper);outline:none;margin-bottom:8px}
+.add-input::placeholder{color:var(--ink3)}
+.add-row{display:flex;gap:8px}
+.add-submit{flex:1;padding:10px;border:1px solid var(--ink);border-radius:6px;background:var(--ink);color:var(--paper);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer}
+.add-cancel{padding:10px 16px;border:1px solid var(--paper3);border-radius:6px;background:none;font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;color:var(--ink3)}
+
+/* BOTTOM NAV */
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:520px;background:var(--paper);border-top:1px solid var(--paper3);display:flex;z-index:100;padding:4px 0 env(safe-area-inset-bottom)}
+.bnav-btn{flex:1;padding:10px 4px 8px;background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px}
+.bnav-icon{font-size:20px;line-height:1}
+.bnav-label{font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);font-family:'DM Sans',sans-serif}
+.bnav-btn.on .bnav-label{color:var(--ink);font-weight:500}
+.bnav-btn.on .bnav-icon{transform:scale(1.1)}
+
+
+/* PHOTOS */
+.photos-label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin:16px 0 10px;border-top:1px solid var(--paper3);padding-top:12px}
+.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:10px}
+.photo-thumb{aspect-ratio:1;border-radius:8px;object-fit:cover;width:100%;cursor:pointer;transition:opacity .2s}
+.photo-thumb:active{opacity:.8}
+.photo-upload-btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:12px;border:1.5px dashed var(--paper3);border-radius:8px;background:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);transition:all .2s}
+.photo-upload-btn:active{border-color:var(--ink3);color:var(--ink)}
+.photo-input{display:none}
+/* LIGHTBOX */
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:999;display:none;align-items:center;justify-content:center;padding:24px}
+.lightbox.open{display:flex}
+.lightbox img{max-width:100%;max-height:80vh;border-radius:8px;object-fit:contain}
+.lightbox-close{position:absolute;top:20px;right:20px;background:none;border:none;color:white;font-size:28px;cursor:pointer;line-height:1}
+.lightbox-caption{position:absolute;bottom:32px;left:0;right:0;text-align:center;color:rgba(255,255,255,.7);font-size:13px;font-family:'Playfair Display',serif;font-style:italic}
+
+/* UTIL */
+.divider{height:1px;background:var(--paper3);margin:20px 0}
+.badge{display:inline-flex;align-items:center;padding:3px 8px;border-radius:100px;font-size:10px;letter-spacing:.06em;text-transform:uppercase}
+.badge-green{background:var(--green-light);color:var(--green)}
+.badge-gold{background:var(--gold-light);color:var(--gold)}
+.badge-red{background:var(--red-light);color:var(--red)}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">Father &amp; Son &nbsp;·&nbsp; Japan</div>
+  <div class="hero-title">Tokyo,<br><em>October.</em></div>
+  <div class="hero-dates">Oct 10 – Oct 17, 2026 &nbsp;·&nbsp; 9 days</div>
+  <div class="hero-bottom">
+    <div class="countdown-pill"><span id="hero-cd">—</span> days to go</div>
+    <div class="travelers">
+      <div class="avatar" style="background:#e8e4dc;color:#3d3d38">J</div>
+      <div class="avatar" style="background:#1a1a18;color:#faf9f6">J</div>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="nav">
+  <button class="nav-btn on" onclick="swTab('itinerary',this)">Itinerary</button>
+  <button class="nav-btn" onclick="swTab('places',this)">Places</button>
+  <button class="nav-btn" onclick="swTab('packing',this)">Packing</button>
+</div>
+
+<!-- ITINERARY TAB -->
+<div class="section on" id="tab-itinerary">
+  <div id="days-container"></div>
+</div>
+
+<!-- PLACES TAB -->
+<div class="section" id="tab-places">
+  <div class="section-header">
+    <h2>Places to See</h2>
+    <p>Pin spots you want to visit. Tap to open in Maps.</p>
+  </div>
+  <div id="places-list"></div>
+  <button onclick="toggleAddPlace()" style="display:flex;align-items:center;gap:8px;margin:8px 0 0;padding:12px 0;background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--ink3)">
+    <span style="font-size:18px">＋</span> Pin a new place
+  </button>
+  <div class="add-place-form" id="add-place-form">
+    <input class="add-input" id="place-name" placeholder="Place name (e.g. Senso-ji Temple)">
+    <input class="add-input" id="place-day" placeholder="Which day? (e.g. Day 2)">
+    <input class="add-input" id="place-note" placeholder="Note (e.g. arrive before 9am)">
+    <div class="add-row">
+      <button class="add-submit" onclick="addPlace()">Pin it</button>
+      <button class="add-cancel" onclick="toggleAddPlace()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- PACKING TAB -->
+<div class="section" id="tab-packing">
+  <div class="section-header">
+    <h2>Packing List</h2>
+    <p>Check off as you pack. Shared between both of you.</p>
+  </div>
+  <div class="pack-progress">
+    <div class="pack-bar"><div class="pack-fill" id="pack-fill" style="width:0%"></div></div>
+    <div class="pack-count" id="pack-count">0 / 0 packed</div>
+  </div>
+  <div id="pack-list"></div>
+</div>
+
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">&#x2715;</button>
+  <img id="lightbox-img" src="" alt="">
+  <div class="lightbox-caption" id="lightbox-caption"></div>
+</div>
+
+<script>
+var LS={get:function(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d;}catch(e){return d;}},set:function(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}};
+
+// DATA
+var DAYS=[
+  {day:'Day 1',date:'Sat Oct 10',icon:'✈️',title:'Depart Washington',
+   desc:'UA 803 departs IAD 12:35pm. Boeing 777. 14h 20m nonstop to Haneda. Seats 50G + 50J. Land Sunday 3:55pm Tokyo time.',
+   tips:['Seats 50G and 50J — window and aisle pair on 777','14hr 20min flight — United Economy on a 777 is decent','Set watch to Tokyo time when you board — land Sunday afternoon'],
+   places:[{icon:'🛫',name:'IAD — Dulles International',type:'UA 803 departs 12:35pm',maps:'https://maps.google.com/?q=Dulles+International+Airport'},{icon:'🛬',name:'HND — Tokyo Haneda',type:'Arrive Sun Oct 11 at 3:55pm',maps:'https://maps.google.com/?q=Tokyo+Haneda+Airport'}],
+   tasks:[{l:'UA 803 — check in online 24hrs before (Oct 9)',d:false},{l:'Confirm seats 50G and 50J',d:false},{l:'Download United app for mobile boarding pass',d:false},{l:'Charge all devices night before',d:false},{l:'Pack compression socks in carry-on',d:false}],
+   note:''},
+  {day:'Day 2',date:'Sun Oct 11',icon:'⛩️',title:'Arrive — Asakusa',
+   desc:'Land at Haneda 3:55pm. Get Suica card at airport, take monorail to Asakusa (~40 min). Check in, get dinner, easy first evening.',
+   tips:['Get Suica card at Haneda airport kiosk — works on all trains and many shops','Monorail from Haneda to Asakusa takes about 40 min','Konbini food is genuinely excellent — eat like a local tonight'],
+   places:[{icon:'🗾',name:'Haneda Airport',type:'Arrival terminal',maps:'https://maps.google.com/?q=Tokyo+Haneda+Airport'},{icon:'🏮',name:'Senso-ji Temple',type:'Temple — Asakusa',maps:'https://maps.google.com/?q=Senso-ji+Temple+Tokyo'},{icon:'🛍️',name:'Nakamise Street',type:'Shopping street',maps:'https://maps.google.com/?q=Nakamise+Street+Asakusa+Tokyo'}],
+   tasks:[{l:'Get Suica card at Haneda airport',d:false},{l:'Load 5000 yen onto Suica',d:false},{l:'Check into ryokan',d:false},{l:'Walk Nakamise Street',d:false},{l:'Visit Senso-ji before dark',d:false}],
+   note:''},
+  {day:'Day 3',date:'Sun Oct 11',icon:'🍣',title:'Tsukiji + Old Tokyo',
+   desc:'Early sushi breakfast at Tsukiji Outer Market (arrive 8am or earlier). Walk Yanaka — old Tokyo untouched.',
+   tips:['Queue at Sushi Dai or Daiwa before 8am — the line moves faster than it looks','Yanaka is the most un-touristy neighborhood in central Tokyo — worth 2 hours','Grab a melon pan from any Nakamise stall'],
+   places:[{icon:'🐟',name:'Tsukiji Outer Market',type:'Fish market — breakfast',maps:'https://maps.google.com/?q=Tsukiji+Outer+Market+Tokyo'},{icon:'🏘️',name:'Yanaka',type:'Old neighborhood — afternoon walk',maps:'https://maps.google.com/?q=Yanaka+Tokyo'}],
+   tasks:[{l:'Depart ryokan by 6:30am for Tsukiji',d:false},{l:'Sushi breakfast at Tsukiji',d:false},{l:'Walk Yanaka neighborhood',d:false}],
+   note:''},
+  {day:'Day 4',date:'Mon Oct 12',icon:'🎮',title:'Akihabara + TeamLab',
+   desc:'Morning in Akihabara — retro gaming, electronics. Afternoon at TeamLab Borderless digital art museum.',
+   tips:['Super Potato retro game store — both of you will love it','Yodobashi Camera: 8 floors of electronics','TeamLab: allow 2-3 hours minimum, wear comfortable shoes'],
+   places:[{icon:'🕹️',name:'Super Potato',type:'Retro game store — Akihabara',maps:'https://maps.google.com/?q=Super+Potato+Akihabara+Tokyo'},{icon:'🎨',name:'TeamLab Borderless',type:'Digital art museum',maps:'https://maps.google.com/?q=TeamLab+Borderless+Tokyo'},{icon:'🔌',name:'Yodobashi Camera',type:'Electronics — Akihabara',maps:'https://maps.google.com/?q=Yodobashi+Camera+Akihabara'}],
+   tasks:[{l:'Confirm TeamLab Borderless ticket time slot',d:false},{l:'Morning in Akihabara',d:false},{l:'TeamLab Borderless afternoon',d:false}],
+   note:''},
+  {day:'Day 5',date:'Tue Oct 13',icon:'🏰',title:'Tokyo DisneySea',
+   desc:'Full day. Arrive gates open at 9am. Fantasy Springs is the crown jewel. Evening Fantasmic lagoon show.',
+   tips:['Go straight to Fantasy Springs the moment gates open — nothing else first','Buy Premier Access in the DisneySea app before arriving','The Fantasmic lagoon show is worth staying for — secure a dinner table with view by 7pm'],
+   places:[{icon:'🏰',name:'Tokyo DisneySea',type:'Theme park — full day',maps:'https://maps.google.com/?q=Tokyo+DisneySea'}],
+   tasks:[{l:'Confirm DisneySea tickets',d:false},{l:'Download DisneySea app',d:false},{l:'Arrive at gates 8:45am',d:false},{l:'Fantasy Springs first',d:false},{l:'Dinner reservation with lagoon view',d:false},{l:'Watch Fantasmic evening show',d:false}],
+   note:''},
+  {day:'Day 6',date:'Wed Oct 14',icon:'🌃',title:'Odaiba + Shibuya',
+   desc:'Odaiba waterfront — Unicorn Gundam statue. Shibuya Crossing at dusk. Dinner in Shinjuku.',
+   tips:['Check the Unicorn Gundam transformation schedule online — it transforms at set times','Shibuya Crossing: best viewed from above at Mag\'s Park or the Starbucks','Any restaurant building in Shinjuku — every floor is a different restaurant'],
+   places:[{icon:'🤖',name:'Unicorn Gundam',type:'Landmark — Odaiba',maps:'https://maps.google.com/?q=Unicorn+Gundam+Statue+Odaiba+Tokyo'},{icon:'🚦',name:'Shibuya Crossing',type:'Iconic crossing — dusk',maps:'https://maps.google.com/?q=Shibuya+Crossing+Tokyo'},{icon:'🌆',name:'Shinjuku',type:'Dinner district — evening',maps:'https://maps.google.com/?q=Shinjuku+Tokyo'}],
+   tasks:[{l:'Odaiba morning - Unicorn Gundam',d:false},{l:'Shibuya Crossing at dusk',d:false},{l:'Dinner in Shinjuku',d:false}],
+   note:''},
+  {day:'Day 7',date:'Thu Oct 15',icon:'🚅',title:'Shinkansen to Kyoto',
+   desc:'Day trip on the bullet train (2h15m each way). Fushimi Inari torii gates, Golden Pavilion, Gion at dusk.',
+   tips:['Fushimi Inari: arrive 7am to beat the crowds — 2 hour hike up through thousands of gates','Kinkaku-ji (Golden Pavilion) entry is 500 yen and takes about 30 min','Gion: walk Hanamikoji Street at 5-6pm for the best chance of seeing geisha'],
+   places:[{icon:'⛩️',name:'Fushimi Inari Taisha',type:'Shrine — 7am start',maps:'https://maps.google.com/?q=Fushimi+Inari+Taisha+Kyoto'},{icon:'🏯',name:'Kinkaku-ji',type:'Golden Pavilion',maps:'https://maps.google.com/?q=Kinkakuji+Kyoto'},{icon:'🏮',name:'Gion District',type:'Geisha district — dusk',maps:'https://maps.google.com/?q=Gion+Kyoto'}],
+   tasks:[{l:'Book Shinkansen reserved seats',d:false},{l:'Depart Tokyo Station by 7:30am',d:false},{l:'Fushimi Inari early morning',d:false},{l:'Kinkaku-ji midday',d:false},{l:'Gion at dusk',d:false},{l:'Return Shinkansen by 9pm',d:false}],
+   note:''},
+  {day:'Day 8',date:'Fri Oct 16',icon:'🌅',title:'Meiji Shrine + Golden Gai',
+   desc:'Peaceful morning at Meiji Shrine — ancient forest in the heart of Tokyo. Evening in Golden Gai.',
+   tips:['Meiji Shrine: arrive 8am for total peace before tour groups arrive','Golden Gai: 200+ tiny bars with 6-8 seats each — commit to one and stay all night','Order whatever the bartender recommends — that is the Golden Gai move'],
+   places:[{icon:'⛩️',name:'Meiji Shrine',type:'Shrine — morning',maps:'https://maps.google.com/?q=Meiji+Shrine+Tokyo'},{icon:'🍶',name:'Golden Gai',type:'Tiny bars — Shinjuku evening',maps:'https://maps.google.com/?q=Golden+Gai+Shinjuku+Tokyo'}],
+   tasks:[{l:'Meiji Shrine by 8am',d:false},{l:'Harajuku afternoon',d:false},{l:'Golden Gai evening',d:false}],
+   note:''},
+  {day:'Day 9',date:'Sat Oct 17',icon:'✈️',title:'Fly Home — UA 804',
+   desc:'UA 804 departs HND 3:45pm. Seats 49G + 49J. 12h 50m flight. Arrive IAD 3:35pm same day — time zones work in your favor going home.',
+   tips:['UA 804 departs 3:45pm — check out by 11am and explore last spots or duty free','Seats 49G + 49J — same setup as outbound','You gain back the day crossing the dateline — arrive 3:35pm same Saturday'],
+   places:[{icon:'🛬',name:'Haneda Airport',type:'Departure terminal',maps:'https://maps.google.com/?q=Tokyo+Haneda+Airport'}],
+   tasks:[{l:'UA 804 — check in online night before (Oct 16)',d:false},{l:'Check out of ryokan by 11am',d:false},{l:'Haneda duty free shopping',d:false},{l:'Leave 1000 yen for ryokan staff',d:false},{l:'Arrive Haneda by 1:30pm for 3:45pm departure',d:false}],
+   note:''}
+];
+
+var PACKING=[
+  {cat:'Documents',items:[
+    {l:'Passports — both valid 6+ months past Oct 2026',d:false},
+    {l:'Flight confirmation printout or screenshot',d:false},
+    {l:'Ryokan confirmation',d:false},
+    {l:'Travel insurance info',d:false},
+    {l:'Emergency contacts written down',d:false}
+  ]},
+  {cat:'Money',items:[
+    {l:'Yen cash — at least 30000 yen each',d:false},
+    {l:'Credit card with no foreign transaction fees',d:false},
+    {l:'Backup debit card',d:false},
+    {l:'Suica card (get at Haneda airport)',d:false}
+  ]},
+  {cat:'Tech',items:[
+    {l:'Phone + charger',d:false},
+    {l:'Portable power bank',d:false},
+    {l:'Earbuds or headphones',d:false},
+    {l:'Downloaded: ANA app, Google Translate Japanese offline, DisneySea app, Tokyo Metro app',d:false},
+    {l:'International roaming enabled or Airalo eSIM loaded',d:false},
+    {l:'Camera if bringing one',d:false}
+  ]},
+  {cat:'Clothes',items:[
+    {l:'7-8 days of clothes — Japan is dressy-casual',d:false},
+    {l:'Comfortable walking shoes — minimum 15k steps/day',d:false},
+    {l:'Light jacket — October evenings get cool',d:false},
+    {l:'One nicer outfit for Golden Gai night',d:false},
+    {l:'Compression socks for the flight',d:false},
+    {l:'Slip-on shoes — many places remove shoes',d:false}
+  ]},
+  {cat:'Health',items:[
+    {l:'Any prescription medications',d:false},
+    {l:'Ibuprofen / pain relief',d:false},
+    {l:'Blister bandages — essential for walking days',d:false},
+    {l:'Sunscreen',d:false},
+    {l:'Deodorant (hard to find Western brands there)',d:false}
+  ]},
+  {cat:'Nice to Have',items:[
+    {l:'Small day bag or backpack',d:false},
+    {l:'Collapsible umbrella',d:false},
+    {l:'Japanese phrasebook or Duolingo crash course',d:false},
+    {l:'Empty bag for souvenirs on the way home',d:false}
+  ]}
+];
+
+var PLACES_CUSTOM=LS.get('tk_places',[]);
+
+var dayState=LS.get('tk_days',DAYS.map(function(){return {tasks:[],note:'',open:false};}));
+var packState=LS.get('tk_pack',PACKING.map(function(cat){return cat.items.map(function(){return false;});}));
+
+function save(){
+  LS.set('tk_days',dayState);
+  LS.set('tk_pack',packState);
+  LS.set('tk_places',PLACES_CUSTOM);
+}
+
+// NAV
+var activeTab='itinerary';
+function swTab(id,btn){
+  activeTab=id;
+  document.querySelectorAll('.section').forEach(function(s){s.classList.remove('on');});
+  document.getElementById('tab-'+id).classList.add('on');
+  document.querySelectorAll('.nav-btn').forEach(function(b){b.classList.remove('on');});
+  btn.classList.add('on');
+  render();
+}
+
+// COUNTDOWN
+function initDate(){
+  var d=Math.max(0,Math.ceil((new Date('2026-10-10')-new Date())/86400000));
+  document.getElementById('hero-cd').textContent=d;
+}
+
+// RENDER ITINERARY
+function renderDays(){
+  var el=document.getElementById('days-container');
+  if(!el)return;
+  el.innerHTML='';
+  DAYS.forEach(function(day,di){
+    var state=dayState[di]||{tasks:[],note:'',open:false};
+    var tasksDone=day.tasks.filter(function(t,ti){return state.tasks[ti];}).length;
+    var allDone=tasksDone===day.tasks.length;
+
+    var card=document.createElement('div');
+    card.className='day-card';
+
+    var dot=document.createElement('div');
+    dot.className='day-dot'+(allDone?' done':'');
+    card.appendChild(dot);
+
+    var hdr=document.createElement('div');
+    hdr.className='day-header';
+    hdr.onclick=(function(idx){return function(){dayState[idx].open=!dayState[idx].open;save();renderDays();};})(di);
+
+    var hdrLeft=document.createElement('div');
+    var meta=document.createElement('div');meta.className='day-meta';meta.textContent=day.day+' · '+day.date;
+    var title=document.createElement('div');title.className='day-title';title.textContent=day.title;
+    hdrLeft.appendChild(meta);hdrLeft.appendChild(title);
+    var ico=document.createElement('div');ico.className='day-icon';ico.textContent=day.icon;
+    hdr.appendChild(hdrLeft);hdr.appendChild(ico);
+    card.appendChild(hdr);
+
+    var desc=document.createElement('div');desc.className='day-desc';desc.textContent=day.desc;
+    card.appendChild(desc);
+
+    // Progress indicator
+    if(day.tasks.length>0){
+      var prog=document.createElement('div');
+      prog.style.cssText='display:flex;align-items:center;gap:8px;margin-bottom:8px';
+      var bar=document.createElement('div');bar.style.cssText='flex:1;height:2px;background:var(--paper3);border-radius:1px;overflow:hidden';
+      var fill=document.createElement('div');fill.style.cssText='height:100%;background:var(--ink);border-radius:1px;transition:width .4s ease;width:'+(tasksDone/day.tasks.length*100)+'%';
+      bar.appendChild(fill);
+      var cnt=document.createElement('div');cnt.style.cssText='font-size:11px;color:var(--ink3);white-space:nowrap';cnt.textContent=tasksDone+'/'+day.tasks.length;
+      prog.appendChild(bar);prog.appendChild(cnt);
+      card.appendChild(prog);
+    }
+
+    // Expandable body
+    var body=document.createElement('div');
+    body.className='day-body'+(state.open?' open':'');
+
+    // Tips
+    if(day.tips.length){
+      var tl=document.createElement('div');tl.className='tips-label';tl.textContent='Insider tips';
+      body.appendChild(tl);
+      day.tips.forEach(function(tip){
+        var tr=document.createElement('div');tr.className='tip';
+        var tb=document.createElement('div');tb.className='tip-bullet';
+        var tt=document.createElement('div');tt.className='tip-text';tt.textContent=tip;
+        tr.appendChild(tb);tr.appendChild(tt);body.appendChild(tr);
+      });
+    }
+
+    // Places
+    if(day.places.length){
+      var pl=document.createElement('div');pl.className='places-label';pl.textContent='Places';
+      body.appendChild(pl);
+      day.places.forEach(function(p){
+        var pc=document.createElement('div');pc.className='place';
+        var pin=document.createElement('div');pin.className='place-pin';pin.style.background='var(--paper3)';pin.textContent=p.icon;
+        var info=document.createElement('div');info.style.cssText='flex:1';
+        var pname=document.createElement('div');pname.className='place-name';pname.textContent=p.name;
+        var ptype=document.createElement('div');ptype.className='place-type';ptype.textContent=p.type;
+        info.appendChild(pname);info.appendChild(ptype);
+        var plink=document.createElement('a');plink.className='place-link';plink.href=p.maps;plink.target='_blank';plink.textContent='Maps ↗';
+        pc.appendChild(pin);pc.appendChild(info);pc.appendChild(plink);
+        body.appendChild(pc);
+      });
+    }
+
+    // Tasks
+    if(day.tasks.length){
+      var taskDiv=document.createElement('div');
+      taskDiv.style.cssText='margin-top:16px;border-top:1px solid var(--paper3);padding-top:12px';
+      var taskLabel=document.createElement('div');taskLabel.className='tips-label';taskLabel.textContent='Day checklist';
+      taskDiv.appendChild(taskLabel);
+      day.tasks.forEach(function(task,ti){
+        var done=state.tasks[ti]||false;
+        var row=document.createElement('div');row.className='task';
+        var chk=document.createElement('div');chk.className='task-check'+(done?' done':'');
+        if(done)chk.textContent='✓';
+        var txt=document.createElement('div');txt.className='task-text'+(done?' done':'');txt.textContent=task.l;
+        row.appendChild(chk);row.appendChild(txt);
+        row.onclick=(function(didx,tidx){return function(){
+          if(!dayState[didx].tasks)dayState[didx].tasks=[];
+          dayState[didx].tasks[tidx]=!dayState[didx].tasks[tidx];
+          save();renderDays();
+        };})(di,ti);
+        taskDiv.appendChild(row);
+      });
+      body.appendChild(taskDiv);
+    }
+
+    // Notes
+    var noteDiv=document.createElement('div');
+    noteDiv.style.cssText='margin-top:16px;border-top:1px solid var(--paper3);padding-top:12px';
+    var noteLabel=document.createElement('div');noteLabel.className='tips-label';noteLabel.textContent='Day notes';
+    noteDiv.appendChild(noteLabel);
+
+    // Show existing notes
+    if(state.note){
+      var ln=document.createElement('div');ln.className='logged-note';
+      var lnt=document.createElement('div');lnt.className='logged-note-text';lnt.textContent=state.note;
+      ln.appendChild(lnt);
+      noteDiv.appendChild(ln);
+    }
+
+    var ta=document.createElement('textarea');ta.className='note-area';ta.placeholder='Add a note, memory, or observation...';
+    var savebtn=document.createElement('button');savebtn.className='log-btn';savebtn.textContent='Save note';
+    savebtn.onclick=(function(idx,textarea){return function(){
+      if(!textarea.value.trim())return;
+      dayState[idx].note=(dayState[idx].note?dayState[idx].note+'\n\n':'')+textarea.value.trim();
+      textarea.value='';
+      save();renderDays();
+    };})(di,ta);
+    noteDiv.appendChild(ta);noteDiv.appendChild(savebtn);
+    body.appendChild(noteDiv);
+
+    // Photos section
+    var photoDiv = document.createElement('div');
+    var photoLabel = document.createElement('div');
+    photoLabel.className = 'photos-label';
+    photoLabel.textContent = 'Photos';
+    photoDiv.appendChild(photoLabel);
+
+    // Photo grid
+    var photoKey = 'day_' + di;
+    var photos = (photoData[photoKey] || []);
+    if (photos.length > 0) {
+      var grid = document.createElement('div');
+      grid.className = 'photo-grid';
+      photos.forEach(function(photo, pi) {
+        var img = document.createElement('img');
+        img.className = 'photo-thumb';
+        img.src = photo.src;
+        img.alt = photo.caption || '';
+        img.title = 'Tap to view · Long press to delete';
+        img.onclick = (function(s, c) { return function() { openLightbox(s, c); }; })(photo.src, photo.caption + ' · ' + photo.date);
+        img.oncontextmenu = (function(didx, pidx) { return function(e) {
+          e.preventDefault();
+          if (confirm('Remove this photo?')) deletePhoto(didx, pidx);
+        }; })(di, pi);
+        grid.appendChild(img);
+      });
+      photoDiv.appendChild(grid);
+    }
+
+    // Upload button
+    var uploadBtn = document.createElement('button');
+    uploadBtn.className = 'photo-upload-btn';
+    uploadBtn.innerHTML = '&#x1F4F7; Add photos';
+    var fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = 'image/*';
+    fileInput.multiple = true;
+    fileInput.className = 'photo-input';
+    fileInput.onchange = (function(didx, inp) { return function() { handlePhotoUpload(didx, inp); }; })(di, fileInput);
+    uploadBtn.onclick = function() { fileInput.click(); };
+    photoDiv.appendChild(fileInput);
+    photoDiv.appendChild(uploadBtn);
+    body.appendChild(photoDiv);
+
+    card.appendChild(body);
+    el.appendChild(card);
+  });
+}
+
+// RENDER PLACES
+function renderPlaces(){
+  var el=document.getElementById('places-list');
+  if(!el)return;
+  el.innerHTML='';
+
+  // Built-in highlights by day
+  var highlights=[
+    {day:'Day 2',name:'Senso-ji Temple',icon:'🏮',note:'Arrive before 9am',maps:'https://maps.google.com/?q=Senso-ji+Temple+Tokyo'},
+    {day:'Day 3',name:'Tsukiji Outer Market',icon:'🐟',note:'Arrive before 8am',maps:'https://maps.google.com/?q=Tsukiji+Outer+Market+Tokyo'},
+    {day:'Day 4',name:'TeamLab Borderless',icon:'🎨',note:'Book tickets in advance',maps:'https://maps.google.com/?q=TeamLab+Borderless+Tokyo'},
+    {day:'Day 5',name:'Tokyo DisneySea',icon:'🏰',note:'Fantasy Springs first',maps:'https://maps.google.com/?q=Tokyo+DisneySea'},
+    {day:'Day 6',name:'Shibuya Crossing',icon:'🚦',note:'Best at dusk',maps:'https://maps.google.com/?q=Shibuya+Crossing+Tokyo'},
+    {day:'Day 7',name:'Fushimi Inari',icon:'⛩️',note:'Arrive by 7am',maps:'https://maps.google.com/?q=Fushimi+Inari+Taisha+Kyoto'},
+    {day:'Day 7',name:'Kinkaku-ji',icon:'🏯',note:'Golden Pavilion — 500 yen',maps:'https://maps.google.com/?q=Kinkakuji+Kyoto'},
+    {day:'Day 7',name:'Gion District',icon:'🏮',note:'Hanamikoji St at 5-6pm',maps:'https://maps.google.com/?q=Gion+Kyoto'},
+    {day:'Day 8',name:'Meiji Shrine',icon:'⛩️',note:'8am for total peace',maps:'https://maps.google.com/?q=Meiji+Shrine+Tokyo'},
+    {day:'Day 8',name:'Golden Gai',icon:'🍶',note:'Commit to one bar',maps:'https://maps.google.com/?q=Golden+Gai+Shinjuku+Tokyo'},
+  ].concat(PLACES_CUSTOM);
+
+  highlights.forEach(function(p){
+    var card=document.createElement('div');card.className='place';
+    var pin=document.createElement('div');pin.className='place-pin';pin.style.background='var(--paper2)';pin.textContent=p.icon||'📍';
+    var info=document.createElement('div');info.style.cssText='flex:1';
+    var name=document.createElement('div');name.className='place-name';name.textContent=p.name;
+    var meta=document.createElement('div');meta.className='place-type';meta.textContent=(p.day?p.day+' · ':'')+p.note;
+    info.appendChild(name);info.appendChild(meta);
+    var link=document.createElement('a');link.className='place-link';link.href=p.maps||('https://maps.google.com/?q='+encodeURIComponent(p.name)+'+Japan');link.target='_blank';link.textContent='Maps ↗';
+    card.appendChild(pin);card.appendChild(info);card.appendChild(link);
+    el.appendChild(card);
+  });
+}
+
+function toggleAddPlace(){
+  var f=document.getElementById('add-place-form');
+  f.classList.toggle('open');
+}
+
+function addPlace(){
+  var name=document.getElementById('place-name').value.trim();
+  if(!name)return;
+  PLACES_CUSTOM.push({
+    name:name,
+    day:document.getElementById('place-day').value.trim(),
+    note:document.getElementById('place-note').value.trim(),
+    icon:'📍',
+    maps:'https://maps.google.com/?q='+encodeURIComponent(name)+'+Tokyo+Japan'
+  });
+  save();
+  document.getElementById('place-name').value='';
+  document.getElementById('place-day').value='';
+  document.getElementById('place-note').value='';
+  toggleAddPlace();
+  renderPlaces();
+}
+
+// RENDER PACKING
+function renderPacking(){
+  var el=document.getElementById('pack-list');
+  if(!el)return;
+  el.innerHTML='';
+  var total=0,done=0;
+
+  PACKING.forEach(function(cat,ci){
+    var sec=document.createElement('div');sec.className='pack-section';
+    var stitle=document.createElement('div');stitle.className='pack-section-title';stitle.textContent=cat.cat;
+    sec.appendChild(stitle);
+    cat.items.forEach(function(item,ii){
+      var packed=packState[ci]&&packState[ci][ii];
+      total++;if(packed)done++;
+      var row=document.createElement('div');row.className='task';
+      var chk=document.createElement('div');chk.className='task-check'+(packed?' done':'');
+      if(packed)chk.textContent='✓';
+      var txt=document.createElement('div');txt.className='task-text'+(packed?' done':'');txt.textContent=item.l;
+      row.appendChild(chk);row.appendChild(txt);
+      row.onclick=(function(catIdx,itemIdx){return function(){
+        if(!packState[catIdx])packState[catIdx]=[];
+        packState[catIdx][itemIdx]=!packState[catIdx][itemIdx];
+        save();renderPacking();
+      };})(ci,ii);
+      sec.appendChild(row);
+    });
+    el.appendChild(sec);
+  });
+
+  var pct=total?Math.round(done/total*100):0;
+  var pf=document.getElementById('pack-fill');if(pf)pf.style.width=pct+'%';
+  var pc=document.getElementById('pack-count');if(pc)pc.textContent=done+' / '+total+' packed';
+}
+
+function render(){
+  if(activeTab==='itinerary')renderDays();
+  else if(activeTab==='places')renderPlaces();
+  else if(activeTab==='packing')renderPacking();
+}
+
+
+// PHOTOS
+var photoData = LS.get('tk_photos', {});
+
+function savePhotos() {
+  LS.set('tk_photos', photoData);
+}
+
+function handlePhotoUpload(di, input) {
+  var files = input.files;
+  if (!files || !files.length) return;
+  var key = 'day_' + di;
+  if (!photoData[key]) photoData[key] = [];
+  var remaining = files.length;
+  Array.from(files).forEach(function(file) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      photoData[key].push({
+        src: e.target.result,
+        caption: file.name.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' '),
+        date: new Date().toLocaleDateString('en-US', {month:'short',day:'numeric'})
+      });
+      remaining--;
+      if (remaining === 0) {
+        savePhotos();
+        renderDays();
+      }
+    };
+    reader.readAsDataURL(file);
+  });
+  input.value = '';
+}
+
+function openLightbox(src, caption) {
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox-caption').textContent = caption || '';
+  document.getElementById('lightbox').classList.add('open');
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+}
+
+function deletePhoto(di, pi) {
+  var key = 'day_' + di;
+  if (photoData[key]) {
+    photoData[key].splice(pi, 1);
+    savePhotos();
+    renderDays();
+  }
+}
+
+// INIT
+initDate();
+render();
+</script>
+</body>
+</html>
