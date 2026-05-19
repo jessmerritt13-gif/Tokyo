@@ -15,6 +15,14 @@
   --green:#2d6a4f;--green-light:#eef6f1;
   --blue:#1a4a7a;--blue-light:#eef3fa;
 }
+body.dark{
+  --ink:#f0ede8;--ink2:#c8c4bc;--ink3:#7a7870;
+  --paper:#141410;--paper2:#1e1e1a;--paper3:#2a2a24;
+  --red:#e05a4a;--red-light:#2a1a18;
+  --gold:#d4a020;--gold-light:#2a2410;
+  --green:#4a9a6f;--green-light:#162418;
+  --blue:#5a8aba;--blue-light:#101e2a;
+}
 body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6;max-width:520px;margin:0 auto;min-height:100vh;padding-bottom:100px}
 
 /* HEADER */
@@ -128,6 +136,16 @@ body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;f
 .bnav-btn.on .bnav-icon{transform:scale(1.1)}
 
 
+
+/* LOUNGES */
+.lounge-card{background:var(--paper2);border-radius:10px;padding:14px;margin-bottom:10px;border-left:3px solid var(--gold)}
+.lounge-name{font-family:'Playfair Display',serif;font-size:16px;color:var(--ink);margin-bottom:2px}
+.lounge-location{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.lounge-detail{font-size:12px;color:var(--ink3);margin-bottom:4px;display:flex;gap:6px;align-items:flex-start}
+.lounge-detail-icon{flex-shrink:0}
+.lounge-badge{display:inline-flex;align-items:center;padding:3px 8px;border-radius:100px;font-size:10px;letter-spacing:.06em;text-transform:uppercase;background:var(--gold-light);color:var(--gold);margin-bottom:8px}
+.lounge-note{font-size:12px;color:var(--red);font-style:italic;margin-top:6px}
+
 /* PHOTOS */
 .photos-label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin:16px 0 10px;border-top:1px solid var(--paper3);padding-top:12px}
 .photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:10px}
@@ -157,8 +175,9 @@ body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;f
 <div class="hero">
   <div class="hero-tag">Father &amp; Son &nbsp;·&nbsp; Japan</div>
   <div class="hero-title">Tokyo,<br><em>October.</em></div>
-  <div class="hero-dates">Oct 10 – Oct 17, 2026 &nbsp;·&nbsp; 9 days</div>
+  <div class="hero-dates">Oct 11 – Oct 17, 2026 &nbsp;·&nbsp; 7 days in Tokyo</div>
   <div class="hero-bottom">
+  <button onclick="toggleDark()" id="dark-btn" style="position:absolute;top:-44px;right:0;background:none;border:1px solid var(--paper3);border-radius:100px;padding:5px 12px;font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink3);cursor:pointer;letter-spacing:.04em">&#9788; Light</button>
     <div class="countdown-pill"><span id="hero-cd">—</span> days to go</div>
     <div class="travelers">
       <div class="avatar" style="background:#e8e4dc;color:#3d3d38">J</div>
@@ -172,6 +191,7 @@ body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;f
   <button class="nav-btn on" onclick="swTab('itinerary',this)">Itinerary</button>
   <button class="nav-btn" onclick="swTab('places',this)">Places</button>
   <button class="nav-btn" onclick="swTab('packing',this)">Packing</button>
+  <button class="nav-btn" onclick="swTab('stay',this)">Stay</button>
 </div>
 
 <!-- ITINERARY TAB -->
@@ -200,15 +220,49 @@ body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;f
   </div>
 </div>
 
+<!-- STAY TAB -->
+<div class="section" id="tab-stay">
+  <div style="padding:28px 0 8px">
+    <h2 style="font-family:'Playfair Display',serif;font-size:28px;font-weight:400;color:var(--ink)">Where to Stay</h2>
+    <p style="font-size:13px;color:var(--ink3);margin-top:4px">7 nights in Tokyo — Oct 11 to Oct 17</p>
+  </div>
+  <!-- Status -->
+  <div style="background:var(--paper2);border-radius:10px;padding:14px;margin-bottom:20px;border-left:3px solid var(--gold)">
+    <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:6px">BOOKING STATUS</div>
+    <div style="font-size:14px;font-weight:500;color:var(--ink)" id="stay-status-text">Searching — ryokans fully booked</div>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+      <button onclick="setStayStatus('searching')" class="stay-status-btn" data-s="searching" style="padding:6px 14px;border-radius:100px;border:1px solid var(--paper3);background:none;font-family:'DM Sans',sans-serif;font-size:12px;cursor:pointer;color:var(--ink3)">Searching</button>
+      <button onclick="setStayStatus('found')" class="stay-status-btn" data-s="found" style="padding:6px 14px;border-radius:100px;border:1px solid var(--paper3);background:none;font-family:'DM Sans',sans-serif;font-size:12px;cursor:pointer;color:var(--ink3)">Found one</button>
+      <button onclick="setStayStatus('booked')" class="stay-status-btn" data-s="booked" style="padding:6px 14px;border-radius:100px;border:1px solid var(--paper3);background:none;font-family:'DM Sans',sans-serif;font-size:12px;cursor:pointer;color:var(--ink3)">Booked</button>
+    </div>
+  </div>
+  <!-- Airbnb filters -->
+  <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px">Airbnb — What to filter for</div>
+  <div id="airbnb-filters"></div>
+  <!-- Neighborhoods -->
+  <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin:20px 0 12px">Best neighborhoods</div>
+  <div id="neighborhoods"></div>
+  <!-- Notes -->
+  <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin:20px 0 8px">Your notes</div>
+  <textarea id="stay-notes" class="note-area" placeholder="Paste Airbnb links, notes, prices..."></textarea>
+  <button onclick="saveStayNote()" class="log-btn" style="margin-top:8px">Save note</button>
+  <div id="stay-notes-saved" style="margin-top:8px"></div>
+</div>
+
 <!-- PACKING TAB -->
 <div class="section" id="tab-packing">
-  <div class="section-header">
-    <h2>Packing List</h2>
-    <p>Check off as you pack. Shared between both of you.</p>
+  <div style="padding:28px 0 8px">
+    <h2 style="font-family:'Playfair Display',serif;font-size:28px;font-weight:400;color:var(--ink)">Packing List</h2>
+    <p style="font-size:13px;color:var(--ink3);margin-top:4px">Check off as you pack</p>
   </div>
-  <div class="pack-progress">
-    <div class="pack-bar"><div class="pack-fill" id="pack-fill" style="width:0%"></div></div>
-    <div class="pack-count" id="pack-count">0 / 0 packed</div>
+  <!-- Packer toggle -->
+  <div style="display:flex;gap:8px;margin-bottom:20px">
+    <button onclick="setPacker('jess')" id="pack-btn-jess" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--ink);background:var(--ink);color:var(--paper);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;font-weight:500">Jess</button>
+    <button onclick="setPacker('jack')" id="pack-btn-jack" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--paper3);background:none;color:var(--ink3);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer">Jack</button>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:20px">
+    <div style="flex:1;height:3px;background:var(--paper3);border-radius:2px;overflow:hidden"><div id="pack-fill" style="height:100%;background:var(--ink);border-radius:2px;transition:width .4s ease;width:0%"></div></div>
+    <div style="font-size:12px;color:var(--ink3);white-space:nowrap" id="pack-count">0 / 0 packed</div>
   </div>
   <div id="pack-list"></div>
 </div>
@@ -226,111 +280,72 @@ var LS={get:function(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(
 
 // DATA
 var DAYS=[
-  {day:'Day 1',date:'Sat Oct 10',icon:'✈️',title:'Depart Washington',
-   desc:'UA 803 departs IAD 12:35pm. Boeing 777. 14h 20m nonstop to Haneda. Seats 50G + 50J. Land Sunday 3:55pm Tokyo time.',
-   tips:['Seats 50G and 50J — window and aisle pair on 777','14hr 20min flight — United Economy on a 777 is decent','Set watch to Tokyo time when you board — land Sunday afternoon'],
+  {day:'Travel Day',date:'Sat Oct 10',icon:'✈️',title:'Depart Washington',
+   desc:'UA 803 departs IAD 12:35pm. Boeing 777. 14h 20m nonstop to Haneda. Seats 50G + 50J — aisle seats across from each other. Land Sunday 3:55pm Tokyo time. Confirmation: EFX3H4',
+   tips:['Seats 50G and 50J — aisle seats across from each other, center section of 777','14hr 20min flight — United Economy on a 777 is decent','Set watch to Tokyo time when you board — land Sunday afternoon'],
+   lounges:[
+     {name:'Etihad Lounge with Chase',loc:'Concourse A near Gate A14',hours:'6am - 10pm daily',access:'Chase Sapphire Reserve: free + 2 guests. Priority Pass Select: 1 free visit/year.',amenities:'Full table service menu, buffet, cocktails, showers, family room',note:'Best option — this is a Chase-native lounge. Get here early.'},
+     {name:'Virgin Atlantic Clubhouse',loc:'Between Concourses A & B, near Gate A32',hours:'6am - 1pm',access:'Priority Pass: complimentary',amenities:'Light buffet, bar, workspace, tarmac views',note:'Morning hours only — good if your Etihad visit is used up'},
+   ],
    places:[{icon:'🛫',name:'IAD — Dulles International',type:'UA 803 departs 12:35pm',maps:'https://maps.google.com/?q=Dulles+International+Airport'},{icon:'🛬',name:'HND — Tokyo Haneda',type:'Arrive Sun Oct 11 at 3:55pm',maps:'https://maps.google.com/?q=Tokyo+Haneda+Airport'}],
-   tasks:[{l:'UA 803 — check in online 24hrs before (Oct 9)',d:false},{l:'Confirm seats 50G and 50J',d:false},{l:'Download United app for mobile boarding pass',d:false},{l:'Charge all devices night before',d:false},{l:'Pack compression socks in carry-on',d:false}],
+   tasks:[{l:'UA 803 — check in online 24hrs before (Oct 9) · Ref: EFX3H4',d:false},{l:'Confirm seats 50G and 50J',d:false},{l:'Download United app for mobile boarding pass',d:false},{l:'Charge all devices night before',d:false},{l:'Pack compression socks in carry-on',d:false}],
    note:''},
-  {day:'Day 2',date:'Sun Oct 11',icon:'⛩️',title:'Arrive — Asakusa',
+  {day:'Day 1',date:'Sun Oct 11',icon:'⛩️',title:'Arrive — Asakusa',
    desc:'Land at Haneda 3:55pm. Get Suica card at airport, take monorail to Asakusa (~40 min). Check in, get dinner, easy first evening.',
    tips:['Get Suica card at Haneda airport kiosk — works on all trains and many shops','Monorail from Haneda to Asakusa takes about 40 min','Konbini food is genuinely excellent — eat like a local tonight'],
    places:[{icon:'🗾',name:'Haneda Airport',type:'Arrival terminal',maps:'https://maps.google.com/?q=Tokyo+Haneda+Airport'},{icon:'🏮',name:'Senso-ji Temple',type:'Temple — Asakusa',maps:'https://maps.google.com/?q=Senso-ji+Temple+Tokyo'},{icon:'🛍️',name:'Nakamise Street',type:'Shopping street',maps:'https://maps.google.com/?q=Nakamise+Street+Asakusa+Tokyo'}],
    tasks:[{l:'Get Suica card at Haneda airport',d:false},{l:'Load 5000 yen onto Suica',d:false},{l:'Check into ryokan',d:false},{l:'Walk Nakamise Street',d:false},{l:'Visit Senso-ji before dark',d:false}],
    note:''},
-  {day:'Day 3',date:'Sun Oct 11',icon:'🍣',title:'Tsukiji + Old Tokyo',
+  {day:'Day 2',date:'Mon Oct 12',icon:'🍣',title:'Tsukiji + Old Tokyo',
    desc:'Early sushi breakfast at Tsukiji Outer Market (arrive 8am or earlier). Walk Yanaka — old Tokyo untouched.',
    tips:['Queue at Sushi Dai or Daiwa before 8am — the line moves faster than it looks','Yanaka is the most un-touristy neighborhood in central Tokyo — worth 2 hours','Grab a melon pan from any Nakamise stall'],
    places:[{icon:'🐟',name:'Tsukiji Outer Market',type:'Fish market — breakfast',maps:'https://maps.google.com/?q=Tsukiji+Outer+Market+Tokyo'},{icon:'🏘️',name:'Yanaka',type:'Old neighborhood — afternoon walk',maps:'https://maps.google.com/?q=Yanaka+Tokyo'}],
    tasks:[{l:'Depart ryokan by 6:30am for Tsukiji',d:false},{l:'Sushi breakfast at Tsukiji',d:false},{l:'Walk Yanaka neighborhood',d:false}],
    note:''},
-  {day:'Day 4',date:'Mon Oct 12',icon:'🎮',title:'Akihabara + TeamLab',
+  {day:'Day 3',date:'Tue Oct 13',icon:'🎮',title:'Akihabara + TeamLab',
    desc:'Morning in Akihabara — retro gaming, electronics. Afternoon at TeamLab Borderless digital art museum.',
    tips:['Super Potato retro game store — both of you will love it','Yodobashi Camera: 8 floors of electronics','TeamLab: allow 2-3 hours minimum, wear comfortable shoes'],
    places:[{icon:'🕹️',name:'Super Potato',type:'Retro game store — Akihabara',maps:'https://maps.google.com/?q=Super+Potato+Akihabara+Tokyo'},{icon:'🎨',name:'TeamLab Borderless',type:'Digital art museum',maps:'https://maps.google.com/?q=TeamLab+Borderless+Tokyo'},{icon:'🔌',name:'Yodobashi Camera',type:'Electronics — Akihabara',maps:'https://maps.google.com/?q=Yodobashi+Camera+Akihabara'}],
    tasks:[{l:'Confirm TeamLab Borderless ticket time slot',d:false},{l:'Morning in Akihabara',d:false},{l:'TeamLab Borderless afternoon',d:false}],
    note:''},
-  {day:'Day 5',date:'Tue Oct 13',icon:'🏰',title:'Tokyo DisneySea',
+  {day:'Day 4',date:'Wed Oct 14',icon:'🏰',title:'Tokyo DisneySea',
    desc:'Full day. Arrive gates open at 9am. Fantasy Springs is the crown jewel. Evening Fantasmic lagoon show.',
    tips:['Go straight to Fantasy Springs the moment gates open — nothing else first','Buy Premier Access in the DisneySea app before arriving','The Fantasmic lagoon show is worth staying for — secure a dinner table with view by 7pm'],
    places:[{icon:'🏰',name:'Tokyo DisneySea',type:'Theme park — full day',maps:'https://maps.google.com/?q=Tokyo+DisneySea'}],
    tasks:[{l:'Confirm DisneySea tickets',d:false},{l:'Download DisneySea app',d:false},{l:'Arrive at gates 8:45am',d:false},{l:'Fantasy Springs first',d:false},{l:'Dinner reservation with lagoon view',d:false},{l:'Watch Fantasmic evening show',d:false}],
    note:''},
-  {day:'Day 6',date:'Wed Oct 14',icon:'🌃',title:'Odaiba + Shibuya',
-   desc:'Odaiba waterfront — Unicorn Gundam statue. Shibuya Crossing at dusk. Dinner in Shinjuku.',
+  {day:'Day 5',date:'Thu Oct 15',icon:'🎸',title:'Odaiba + Shibuya + Shimokitazawa',
+   desc:'Odaiba morning — Unicorn Gundam. Shibuya Crossing at dusk. Then 10 min on the Keio Line to Shimokitazawa — vintage shops, live music, dinner. This is the best evening of the trip.',
    tips:['Check the Unicorn Gundam transformation schedule online — it transforms at set times','Shibuya Crossing: best viewed from above at Mag\'s Park or the Starbucks','Any restaurant building in Shinjuku — every floor is a different restaurant'],
-   places:[{icon:'🤖',name:'Unicorn Gundam',type:'Landmark — Odaiba',maps:'https://maps.google.com/?q=Unicorn+Gundam+Statue+Odaiba+Tokyo'},{icon:'🚦',name:'Shibuya Crossing',type:'Iconic crossing — dusk',maps:'https://maps.google.com/?q=Shibuya+Crossing+Tokyo'},{icon:'🌆',name:'Shinjuku',type:'Dinner district — evening',maps:'https://maps.google.com/?q=Shinjuku+Tokyo'}],
-   tasks:[{l:'Odaiba morning - Unicorn Gundam',d:false},{l:'Shibuya Crossing at dusk',d:false},{l:'Dinner in Shinjuku',d:false}],
+   places:[{icon:'🤖',name:'Unicorn Gundam',type:'Landmark — Odaiba',maps:'https://maps.google.com/?q=Unicorn+Gundam+Statue+Odaiba+Tokyo'},{icon:'🚦',name:'Shibuya Crossing',type:'Iconic crossing — dusk',maps:'https://maps.google.com/?q=Shibuya+Crossing+Tokyo'},{icon:'🎸',name:'Shimokitazawa',type:'Indie neighborhood — evening',maps:'https://maps.google.com/?q=Shimokitazawa+Tokyo'},{icon:'🛍️',name:'Ichiban-gai',type:'Vintage shopping street — Shimokitazawa',maps:'https://maps.google.com/?q=Shimokitazawa+Ichiban-gai+Tokyo'},{icon:'🍜',name:'Shimokitazawa ramen',type:'Dinner — explore and pick one',maps:'https://maps.google.com/?q=ramen+Shimokitazawa+Tokyo'}],
+   tasks:[{l:'Odaiba morning - Unicorn Gundam',d:false},{l:'Shibuya Crossing at dusk',d:false},{l:'Keio Inokashira Line to Shimokitazawa (10 min from Shibuya)',d:false},{l:'Walk Ichiban-gai vintage shops',d:false},{l:'Find a live music bar or ramen spot',d:false}],
    note:''},
-  {day:'Day 7',date:'Thu Oct 15',icon:'🚅',title:'Shinkansen to Kyoto',
+  {day:'Day 6',date:'Fri Oct 16',icon:'🚅',title:'Shinkansen to Kyoto',
    desc:'Day trip on the bullet train (2h15m each way). Fushimi Inari torii gates, Golden Pavilion, Gion at dusk.',
    tips:['Fushimi Inari: arrive 7am to beat the crowds — 2 hour hike up through thousands of gates','Kinkaku-ji (Golden Pavilion) entry is 500 yen and takes about 30 min','Gion: walk Hanamikoji Street at 5-6pm for the best chance of seeing geisha'],
    places:[{icon:'⛩️',name:'Fushimi Inari Taisha',type:'Shrine — 7am start',maps:'https://maps.google.com/?q=Fushimi+Inari+Taisha+Kyoto'},{icon:'🏯',name:'Kinkaku-ji',type:'Golden Pavilion',maps:'https://maps.google.com/?q=Kinkakuji+Kyoto'},{icon:'🏮',name:'Gion District',type:'Geisha district — dusk',maps:'https://maps.google.com/?q=Gion+Kyoto'}],
    tasks:[{l:'Book Shinkansen reserved seats',d:false},{l:'Depart Tokyo Station by 7:30am',d:false},{l:'Fushimi Inari early morning',d:false},{l:'Kinkaku-ji midday',d:false},{l:'Gion at dusk',d:false},{l:'Return Shinkansen by 9pm',d:false}],
    note:''},
-  {day:'Day 8',date:'Fri Oct 16',icon:'🌅',title:'Meiji Shrine + Golden Gai',
+  {day:'Day 7',date:'Sat Oct 17 (morning)',icon:'🌅',title:'Meiji Shrine — Final Morning',
    desc:'Peaceful morning at Meiji Shrine — ancient forest in the heart of Tokyo. Evening in Golden Gai.',
    tips:['Meiji Shrine: arrive 8am for total peace before tour groups arrive','Golden Gai: 200+ tiny bars with 6-8 seats each — commit to one and stay all night','Order whatever the bartender recommends — that is the Golden Gai move'],
    places:[{icon:'⛩️',name:'Meiji Shrine',type:'Shrine — morning',maps:'https://maps.google.com/?q=Meiji+Shrine+Tokyo'},{icon:'🍶',name:'Golden Gai',type:'Tiny bars — Shinjuku evening',maps:'https://maps.google.com/?q=Golden+Gai+Shinjuku+Tokyo'}],
    tasks:[{l:'Meiji Shrine by 8am',d:false},{l:'Harajuku afternoon',d:false},{l:'Golden Gai evening',d:false}],
    note:''},
-  {day:'Day 9',date:'Sat Oct 17',icon:'✈️',title:'Fly Home — UA 804',
-   desc:'UA 804 departs HND 3:45pm. Seats 49G + 49J. 12h 50m flight. Arrive IAD 3:35pm same day — time zones work in your favor going home.',
-   tips:['UA 804 departs 3:45pm — check out by 11am and explore last spots or duty free','Seats 49G + 49J — same setup as outbound','You gain back the day crossing the dateline — arrive 3:35pm same Saturday'],
+  {day:'Travel Day',date:'Sat Oct 17',icon:'✈️',title:'Fly Home — UA 804',
+   desc:'UA 804 departs HND 3:45pm. Seats 49G + 49J — aisle seats across from each other. 12h 50m nonstop. Arrive IAD 3:35pm same day. Confirmation: EFX3H4',
+   tips:['UA 804 departs 3:45pm — check out by 11am and explore last spots or duty free','Seats 49G + 49J — aisle seats across from each other, easy to talk across the aisle','You gain back the day crossing the dateline — arrive 3:35pm same Saturday'],
+   lounges:[
+     {name:'TIAT Lounge',loc:'Terminal 3, 4F near Gate 110',hours:'24 hours',access:'Priority Pass: complimentary',amenities:'Japanese buffet: edamame, fried chicken, rice balls, sake, Japanese beer, showers, massage chairs',note:'Your best bet — solid Japanese food, showers if you want to freshen up before the flight'},
+     {name:'Sky Lounge South',loc:'Terminal 3, airside near Gate 108',hours:'24 hours',access:'Priority Pass: complimentary',amenities:'Drinks, snacks, panoramic runway views',note:'Good views but lighter on food than TIAT — worth a look'},
+   ],
    places:[{icon:'🛬',name:'Haneda Airport',type:'Departure terminal',maps:'https://maps.google.com/?q=Tokyo+Haneda+Airport'}],
-   tasks:[{l:'UA 804 — check in online night before (Oct 16)',d:false},{l:'Check out of ryokan by 11am',d:false},{l:'Haneda duty free shopping',d:false},{l:'Leave 1000 yen for ryokan staff',d:false},{l:'Arrive Haneda by 1:30pm for 3:45pm departure',d:false}],
+   tasks:[{l:'UA 804 — check in online night before (Oct 16) · Ref: EFX3H4',d:false},{l:'Check out of ryokan by 11am',d:false},{l:'Haneda duty free shopping',d:false},{l:'Leave 1000 yen for ryokan staff',d:false},{l:'Arrive Haneda by 1:30pm for 3:45pm departure',d:false}],
    note:''}
 ];
 
-var PACKING=[
-  {cat:'Documents',items:[
-    {l:'Passports — both valid 6+ months past Oct 2026',d:false},
-    {l:'Flight confirmation printout or screenshot',d:false},
-    {l:'Ryokan confirmation',d:false},
-    {l:'Travel insurance info',d:false},
-    {l:'Emergency contacts written down',d:false}
-  ]},
-  {cat:'Money',items:[
-    {l:'Yen cash — at least 30000 yen each',d:false},
-    {l:'Credit card with no foreign transaction fees',d:false},
-    {l:'Backup debit card',d:false},
-    {l:'Suica card (get at Haneda airport)',d:false}
-  ]},
-  {cat:'Tech',items:[
-    {l:'Phone + charger',d:false},
-    {l:'Portable power bank',d:false},
-    {l:'Earbuds or headphones',d:false},
-    {l:'Downloaded: ANA app, Google Translate Japanese offline, DisneySea app, Tokyo Metro app',d:false},
-    {l:'International roaming enabled or Airalo eSIM loaded',d:false},
-    {l:'Camera if bringing one',d:false}
-  ]},
-  {cat:'Clothes',items:[
-    {l:'7-8 days of clothes — Japan is dressy-casual',d:false},
-    {l:'Comfortable walking shoes — minimum 15k steps/day',d:false},
-    {l:'Light jacket — October evenings get cool',d:false},
-    {l:'One nicer outfit for Golden Gai night',d:false},
-    {l:'Compression socks for the flight',d:false},
-    {l:'Slip-on shoes — many places remove shoes',d:false}
-  ]},
-  {cat:'Health',items:[
-    {l:'Any prescription medications',d:false},
-    {l:'Ibuprofen / pain relief',d:false},
-    {l:'Blister bandages — essential for walking days',d:false},
-    {l:'Sunscreen',d:false},
-    {l:'Deodorant (hard to find Western brands there)',d:false}
-  ]},
-  {cat:'Nice to Have',items:[
-    {l:'Small day bag or backpack',d:false},
-    {l:'Collapsible umbrella',d:false},
-    {l:'Japanese phrasebook or Duolingo crash course',d:false},
-    {l:'Empty bag for souvenirs on the way home',d:false}
-  ]}
-];
-
 var PLACES_CUSTOM=LS.get('tk_places',[]);
-
 var dayState=LS.get('tk_days',DAYS.map(function(){return {tasks:[],note:'',open:false};}));
-var packState=LS.get('tk_pack',PACKING.map(function(cat){return cat.items.map(function(){return false;});}));
 
 function save(){
   LS.set('tk_days',dayState);
@@ -346,7 +361,8 @@ function swTab(id,btn){
   document.getElementById('tab-'+id).classList.add('on');
   document.querySelectorAll('.nav-btn').forEach(function(b){b.classList.remove('on');});
   btn.classList.add('on');
-  render();
+  if(id==='stay') renderStay();
+  else render();
 }
 
 // COUNTDOWN
@@ -412,6 +428,34 @@ function renderDays(){
         var tb=document.createElement('div');tb.className='tip-bullet';
         var tt=document.createElement('div');tt.className='tip-text';tt.textContent=tip;
         tr.appendChild(tb);tr.appendChild(tt);body.appendChild(tr);
+      });
+    }
+
+    // Lounges
+    if(day.lounges && day.lounges.length){
+      var ll=document.createElement('div');ll.className='tips-label';ll.textContent='Airport lounges — Chase Priority Pass';
+      body.appendChild(ll);
+      day.lounges.forEach(function(lounge){
+        var lc=document.createElement('div');lc.className='lounge-card';
+        var ln=document.createElement('div');ln.className='lounge-name';ln.textContent=lounge.name;
+        var lloc=document.createElement('div');lloc.className='lounge-location';lloc.textContent=lounge.loc;
+        var lbadge=document.createElement('div');lbadge.className='lounge-badge';lbadge.textContent=lounge.hours;
+        var ldetails=[
+          {icon:'🎫',text:lounge.access},
+          {icon:'🍽️',text:lounge.amenities},
+        ];
+        lc.appendChild(ln);lc.appendChild(lloc);lc.appendChild(lbadge);
+        ldetails.forEach(function(d){
+          var ld=document.createElement('div');ld.className='lounge-detail';
+          var ldi=document.createElement('span');ldi.className='lounge-detail-icon';ldi.textContent=d.icon;
+          var ldt=document.createElement('span');ldt.textContent=d.text;
+          ld.appendChild(ldi);ld.appendChild(ldt);lc.appendChild(ld);
+        });
+        if(lounge.note){
+          var ln2=document.createElement('div');ln2.className='lounge-note';ln2.textContent='Note: '+lounge.note;
+          lc.appendChild(ln2);
+        }
+        body.appendChild(lc);
       });
     }
 
@@ -537,6 +581,8 @@ function renderPlaces(){
 
   // Built-in highlights by day
   var highlights=[
+    {day:'Day 5',name:'Shimokitazawa',icon:'🎸',note:'Evening — vintage shops, live music, ramen',maps:'https://maps.google.com/?q=Shimokitazawa+Tokyo'},
+    {day:'Day 5',name:'Ichiban-gai',icon:'🛍️',note:'Main vintage shopping street',maps:'https://maps.google.com/?q=Shimokitazawa+Ichiban-gai+Tokyo'},
     {day:'Day 2',name:'Senso-ji Temple',icon:'🏮',note:'Arrive before 9am',maps:'https://maps.google.com/?q=Senso-ji+Temple+Tokyo'},
     {day:'Day 3',name:'Tsukiji Outer Market',icon:'🐟',note:'Arrive before 8am',maps:'https://maps.google.com/?q=Tsukiji+Outer+Market+Tokyo'},
     {day:'Day 4',name:'TeamLab Borderless',icon:'🎨',note:'Book tickets in advance',maps:'https://maps.google.com/?q=TeamLab+Borderless+Tokyo'},
@@ -590,9 +636,12 @@ function renderPacking(){
   var el=document.getElementById('pack-list');
   if(!el)return;
   el.innerHTML='';
+  var isJess = activePacker === 'jess';
+  var packData = isJess ? PACKING_JESS : PACKING_JACK;
+  var packState = isJess ? packStateJess : packStateJack;
   var total=0,done=0;
 
-  PACKING.forEach(function(cat,ci){
+  packData.forEach(function(cat,ci){
     var sec=document.createElement('div');sec.className='pack-section';
     var stitle=document.createElement('div');stitle.className='pack-section-title';stitle.textContent=cat.cat;
     sec.appendChild(stitle);
@@ -604,11 +653,14 @@ function renderPacking(){
       if(packed)chk.textContent='✓';
       var txt=document.createElement('div');txt.className='task-text'+(packed?' done':'');txt.textContent=item.l;
       row.appendChild(chk);row.appendChild(txt);
-      row.onclick=(function(catIdx,itemIdx){return function(){
-        if(!packState[catIdx])packState[catIdx]=[];
-        packState[catIdx][itemIdx]=!packState[catIdx][itemIdx];
-        save();renderPacking();
-      };})(ci,ii);
+      row.onclick=(function(catIdx,itemIdx,isJ){return function(){
+        var ps = isJ ? packStateJess : packStateJack;
+        var sk = isJ ? 'tk_pack_jess' : 'tk_pack_jack';
+        if(!ps[catIdx])ps[catIdx]=[];
+        ps[catIdx][itemIdx]=!ps[catIdx][itemIdx];
+        LS.set(sk, ps);
+        renderPacking();
+      };})(ci,ii,isJess);
       sec.appendChild(row);
     });
     el.appendChild(sec);
@@ -617,6 +669,8 @@ function renderPacking(){
   var pct=total?Math.round(done/total*100):0;
   var pf=document.getElementById('pack-fill');if(pf)pf.style.width=pct+'%';
   var pc=document.getElementById('pack-count');if(pc)pc.textContent=done+' / '+total+' packed';
+  // Update toggle buttons
+  setPacker(activePacker);
 }
 
 function render(){
@@ -677,7 +731,365 @@ function deletePhoto(di, pi) {
   }
 }
 
+
+// DARK MODE
+var isDark = LS.get('tk_dark', false);
+function applyDark(){
+  document.body.classList.toggle('dark', isDark);
+  var btn = document.getElementById('dark-btn');
+  if(btn) btn.textContent = isDark ? '☀ Light' : '☾ Dark';
+  // Update nav background
+  document.querySelectorAll('.nav,.topbar-fake').forEach(function(el){
+    el.style.background = 'var(--paper)';
+  });
+}
+function toggleDark(){
+  isDark = !isDark;
+  LS.set('tk_dark', isDark);
+  applyDark();
+}
+
+// PACKER TOGGLE
+var activePacker = LS.get('tk_packer', 'jess');
+function setPacker(p){
+  activePacker = p;
+  LS.set('tk_packer', p);
+  var bj = document.getElementById('pack-btn-jess');
+  var bk = document.getElementById('pack-btn-jack');
+  if(bj){ bj.style.background = p==='jess'?'var(--ink)':'none'; bj.style.color = p==='jess'?'var(--paper)':'var(--ink3)'; bj.style.borderColor = p==='jess'?'var(--ink)':'var(--paper3)'; }
+  if(bk){ bk.style.background = p==='jack'?'var(--ink)':'none'; bk.style.color = p==='jack'?'var(--paper)':'var(--ink3)'; bk.style.borderColor = p==='jack'?'var(--ink)':'var(--paper3)'; }
+  renderPacking();
+}
+
+// PACKING DATA — SPLIT BY PERSON
+var PACKING_JESS = [
+  {cat:'Documents',items:[
+    {l:'Passport — valid 6+ months past Oct 2026',d:false},
+    {l:'Flight confirmation — UA 803/804 ref EFX3H4',d:false},
+    {l:'Accommodation confirmation',d:false},
+    {l:'Chase Sapphire Reserve card',d:false},
+    {l:'Travel insurance info',d:false},
+    {l:'Emergency contacts written down',d:false}
+  ]},
+  {cat:'Money',items:[
+    {l:'Yen cash — at least 30,000 yen',d:false},
+    {l:'Backup debit card',d:false},
+    {l:'Suica card (get at Haneda on arrival)',d:false}
+  ]},
+  {cat:'Tech',items:[
+    {l:'Phone + charger',d:false},
+    {l:'Portable power bank',d:false},
+    {l:'Noise canceling headphones for flight',d:false},
+    {l:'ANA app downloaded',d:false},
+    {l:'Google Translate — Japanese pack offline',d:false},
+    {l:'DisneySea app downloaded',d:false},
+    {l:'Tokyo Metro app downloaded',d:false},
+    {l:'International roaming or Airalo eSIM loaded',d:false}
+  ]},
+  {cat:'Clothes',items:[
+    {l:'7 days of clothes — dressy-casual',d:false},
+    {l:'Comfortable walking shoes — 15k steps/day',d:false},
+    {l:'Slip-on shoes — temples require shoe removal',d:false},
+    {l:'Light jacket — October evenings get cool',d:false},
+    {l:'Compression socks for the 14hr flight',d:false},
+    {l:'One nicer outfit for Golden Gai night',d:false}
+  ]},
+  {cat:'Health',items:[
+    {l:'Any prescription medications',d:false},
+    {l:'Ibuprofen / pain relief',d:false},
+    {l:'Knee brace if needed for walking days',d:false},
+    {l:'Blister bandages — essential',d:false},
+    {l:'Sunscreen',d:false},
+    {l:'Deodorant — hard to find Western brands there',d:false}
+  ]},
+  {cat:'Nice to Have',items:[
+    {l:'Small day backpack',d:false},
+    {l:'Collapsible umbrella',d:false},
+    {l:'Empty bag for souvenirs',d:false},
+    {l:'Earplugs for flight',d:false}
+  ]}
+];
+
+var PACKING_JACK = [
+  {cat:'Documents',items:[
+    {l:'Passport — valid 6+ months past Oct 2026',d:false},
+    {l:'Student ID (useful for some discounts)',d:false},
+    {l:'Flight confirmation screenshot — ref EFX3H4',d:false},
+    {l:'Emergency contacts',d:false}
+  ]},
+  {cat:'Money',items:[
+    {l:'Yen cash — at least 20,000 yen',d:false},
+    {l:'Debit or credit card for emergencies',d:false}
+  ]},
+  {cat:'Tech',items:[
+    {l:'Phone + charger',d:false},
+    {l:'Portable power bank',d:false},
+    {l:'Headphones for flight',d:false},
+    {l:'Google Translate — Japanese pack offline',d:false},
+    {l:'DisneySea app downloaded',d:false},
+    {l:'Tokyo Metro app downloaded',d:false},
+    {l:'International roaming or Airalo eSIM loaded',d:false}
+  ]},
+  {cat:'Clothes',items:[
+    {l:'7 days of clothes',d:false},
+    {l:'Comfortable walking shoes',d:false},
+    {l:'Slip-on shoes for temples',d:false},
+    {l:'Light jacket',d:false},
+    {l:'One decent outfit for Golden Gai',d:false}
+  ]},
+  {cat:'Health',items:[
+    {l:'Any personal medications',d:false},
+    {l:'Ibuprofen',d:false},
+    {l:'Blister bandages',d:false},
+    {l:'Sunscreen',d:false}
+  ]},
+  {cat:'Nice to Have',items:[
+    {l:'Day backpack',d:false},
+    {l:'Collapsible umbrella',d:false},
+    {l:'Camera if bringing one',d:false},
+    {l:'Empty bag for souvenirs',d:false}
+  ]}
+];
+
+var packStateJess = LS.get('tk_pack_jess', PACKING_JESS.map(function(cat){return cat.items.map(function(){return false;});}));
+var packStateJack = LS.get('tk_pack_jack', PACKING_JACK.map(function(cat){return cat.items.map(function(){return false;});}));
+
+// STAY DATA
+var AIRBNB_FILTERS = [
+  {icon:'🏠',label:'Entire home',note:'Not a private room — 7 nights, you need your own space'},
+  {icon:'🛏️',label:'2 beds or 1 bed + sofa bed',note:'Confirm sleeping setup before booking'},
+  {icon:'👕',label:'Washing machine',note:'Essential for a 7-night trip'},
+  {icon:'📶',label:'Fast WiFi',note:'Check the listed speed — anything under 50 Mbps is slow'},
+  {icon:'⭐',label:'4.8+ rating with 20+ reviews',note:'Non-negotiable — Tokyo has a lot of listings'},
+  {icon:'🚇',label:'Within 10 min walk of a subway stop',note:'Check which line — you want Ginza, Asakusa, or Yamanote lines'},
+  {icon:'❌',label:'Flexible or moderate cancellation',note:'Things change — protect yourself'},
+  {icon:'💰',label:'$120-$200/night budget',note:'$840-$1,400 total for 7 nights in a good area'},
+];
+
+var NEIGHBORHOODS = [
+  {name:'Shimokitazawa',icon:'🎸',
+   vibe:'Indie neighborhood — vintage shops, live music, craft beer bars, great ramen. Zero tourists. Very different energy from central Tokyo.',
+   best:'TOP PICK — accommodation exists and is good',
+   link:'https://jw-webmagazine.com/tips/shimokitazawa-local-guide/',linkLabel:'Local guide →',color:'#7a3a8a',
+   times:[
+     {dest:'Shibuya',time:'6 min',note:'1 train, Inokashira Line — no transfer'},
+     {dest:'Shinjuku',time:'8 min',note:'1 train, Odakyu Line — no transfer'},
+     {dest:'Asakusa',time:'38-45 min',note:'Keio Inokashira to Shibuya, then Ginza Line'},
+     {dest:'Akihabara',time:'40 min',note:'Via Shibuya or Shinjuku transfer'},
+     {dest:'Haneda Airport',time:'56 min',note:'Via Shibuya and monorail — or 54 min bus via Shinjuku'},
+     {dest:'DisneySea',time:'55-60 min',note:'Via Shibuya → Tokyo Station → JR Keiyo Line to Maihama'},
+     {dest:'Odaiba',time:'50 min',note:'Via Shibuya → Shimbashi → Yurikamome monorail'},
+     {dest:'Kyoto (Shinkansen)',time:'2h 30-45 min',note:'Via Shibuya → Shinagawa → Nozomi Shinkansen to Kyoto'},
+     {dest:'Tsukiji Market',time:'35 min',note:'Via Shibuya → Ginza Line to Tsukijishijo'},
+     {dest:'Meiji Shrine',time:'15 min',note:'Via Shibuya → walk or 1 stop to Harajuku'},
+   ],
+   stays:[
+     {name:'illi Com Shimokitazawa',type:'Boutique hotel on Airbnb',note:'3 min walk from station. 50-80sqm rooms sleep up to 6-8. Kitchen, washing machine, AC, balcony. Opened 2023. Highly rated. Book on Airbnb or Booking.com.',url:'https://www.airbnb.com/rooms/1004580439987220711'},
+     {name:'illi Sun Shimokitazawa',type:'Boutique hotel on Airbnb',note:'1 min walk from station. 48sqm, sleeps 6. Same illi brand. Prime location.',url:'https://www.airbnb.com/rooms/39450545'},
+     {name:'MUSTARD HOTEL Shimokitazawa',type:'Boutique hotel',note:'Designed specifically around the neighborhood vibe. On Airbnb and direct booking. Breakfast included option.',url:'https://www.airbnb.com/rooms/53974318'},
+     {name:'MI-HOTEL Shimokitazawa',type:'Entire apartment',note:'Airbnb. Indie record store aesthetic, 3 min from station. Exactly the right vibe.',url:'https://www.airbnb.com/rooms/1617075523288032923'},
+     {name:'YOU-TEI Shimokitazawa 305',type:'Entire condo 40sqm',note:'Japanese-style condo, direct access to Shibuya and Shinjuku. Good reviews.',url:'https://www.airbnb.com/rooms/1229360376255595575'},
+   ]
+},
+  {name:'Asakusa',icon:'🏮',
+   vibe:'Traditional Tokyo. Walking distance to Senso-ji. Excellent transit. Quieter than central Tokyo.',
+   best:'Best base if not Shimokitazawa — ryokans were here, Airbnbs plentiful',color:'#c8392b',
+   times:[
+     {dest:'Senso-ji',time:'2 min walk',note:'Right there — the whole point of Asakusa'},
+     {dest:'Ueno',time:'5 min',note:'Tokyo Metro Ginza Line — 1 stop'},
+     {dest:'Akihabara',time:'10 min',note:'Ginza Line to Ueno, walk or 1 more stop'},
+     {dest:'Tsukiji Market',time:'20 min',note:'Ginza Line toward Shibuya — 4 stops'},
+     {dest:'Shibuya',time:'35-40 min',note:'Ginza Line all the way — 1 train, no transfer'},
+     {dest:'Shinjuku',time:'40 min',note:'Via Ginza Line to Shibuya, transfer Yamanote Line'},
+     {dest:'Shimokitazawa',time:'38-45 min',note:'Ginza Line to Shibuya, Inokashira Line'},
+     {dest:'DisneySea',time:'48 min',note:'Via Hatchobori — fastest route from Asakusa'},
+     {dest:'Odaiba',time:'55-65 min',note:'Via Shimbashi, Yurikamome monorail'},
+     {dest:'Haneda Airport',time:'40 min',note:'Toei Asakusa Line direct to Haneda — very convenient'},
+     {dest:'Kyoto (Shinkansen)',time:'2h 50 min',note:'Via Tokyo Station — transfer twice'},
+     {dest:'Meiji Shrine',time:'40 min',note:'Ginza Line to Shibuya, then Yamanote to Harajuku'},
+   ]
+  },
+  {name:'Yanaka',icon:'🏘️',
+   vibe:'Old Tokyo untouched. Quiet, local, temple cats, shotengai shopping street, zero chain stores.',
+   best:'Best atmosphere — feels like Tokyo 50 years ago. Adjacent to Asakusa travel times.',color:'#b8860b',
+   times:[
+     {dest:'Ueno',time:'10 min walk',note:'Or 1 stop on Chiyoda Line from Nezu'},
+     {dest:'Asakusa',time:'15-20 min',note:'Walk to Ueno + Ginza Line, or bus'},
+     {dest:'Akihabara',time:'15 min',note:'Walk to Ueno, then 3 min on JR'},
+     {dest:'Tsukiji Market',time:'30 min',note:'Via Ueno and Ginza Line'},
+     {dest:'Shibuya',time:'45 min',note:'Via Ueno + Ginza Line all the way'},
+     {dest:'Shimokitazawa',time:'50 min',note:'Via Ueno or Akihabara, multiple options'},
+     {dest:'DisneySea',time:'55 min',note:'Via Akihabara + JR Keiyo Line'},
+     {dest:'Haneda Airport',time:'45 min',note:'Via Ueno + JR Keihin-Tohoku to Shinagawa, Keikyu'},
+     {dest:'Kyoto (Shinkansen)',time:'2h 50 min',note:'Via Ueno or Tokyo Station'},
+   ]
+  },
+  {name:'Ueno',icon:'🌳',
+   vibe:'Practical hub. Parks, world-class museums, Ameyoko market. Less character than Asakusa but very central.',
+   best:'Best for convenience — Shinkansen access easy, Asakusa 5 min away',color:'#2d6a4f',
+   times:[
+     {dest:'Asakusa',time:'5 min',note:'Tokyo Metro Ginza Line — 1 stop'},
+     {dest:'Akihabara',time:'3 min',note:'JR Yamanote Line or short walk (20 min)'},
+     {dest:'Tsukiji Market',time:'20 min',note:'Ginza Line toward Shibuya — 3 stops'},
+     {dest:'Shibuya',time:'30 min',note:'Ginza Line direct — no transfer'},
+     {dest:'Shinjuku',time:'25 min',note:'JR Yamanote Line — fast and direct'},
+     {dest:'Shimokitazawa',time:'35-40 min',note:'Via Shibuya or Shinjuku'},
+     {dest:'DisneySea',time:'50 min',note:'JR Keiyo Line from Akihabara or Tokyo Station'},
+     {dest:'Odaiba',time:'55 min',note:'Via Shimbashi + Yurikamome'},
+     {dest:'Haneda Airport',time:'35 min',note:'JR Keihin-Tohoku to Shinagawa, then Keikyu Airport Line'},
+     {dest:'Kyoto (Shinkansen)',time:'2h 40 min',note:'JR to Tokyo Station or Shinagawa — easy Shinkansen access'},
+     {dest:'Meiji Shrine',time:'35 min',note:'Ginza Line to Shibuya, Yamanote to Harajuku'},
+   ]
+  },
+  {name:'Shinjuku',icon:'🌆',
+   vibe:'Central, massive, never sleeps. Golden Gai is a 10 min walk. Great transit hub but loud and very touristy.',
+   best:'Good transit hub — but loud. Worth it only if Golden Gai access is the priority.',color:'#1a4a7a',
+   times:[
+     {dest:'Shibuya',time:'5 min',note:'JR Yamanote Line — 1 stop'},
+     {dest:'Shimokitazawa',time:'8 min',note:'Odakyu Line — 1 train, no transfer'},
+     {dest:'Golden Gai',time:'10 min walk',note:'Right in the neighborhood'},
+     {dest:'Meiji Shrine',time:'10 min',note:'JR Yamanote to Harajuku — 1 stop'},
+     {dest:'Akihabara',time:'20 min',note:'JR Chuo Line to Kanda, 3 stops'},
+     {dest:'Asakusa',time:'40 min',note:'Via Shibuya + Ginza Line or direct subway'},
+     {dest:'Tsukiji Market',time:'30 min',note:'Oedo Line to Tsukijishijo — direct'},
+     {dest:'DisneySea',time:'55-60 min',note:'Via Tokyo Station + JR Keiyo Line to Maihama'},
+     {dest:'Odaiba',time:'40 min',note:'Rinkai Line from Osaki — 1 transfer'},
+     {dest:'Haneda Airport',time:'40 min',note:'Bus from Shinjuku Bus Terminal — 40 min direct'},
+     {dest:'Kyoto (Shinkansen)',time:'2h 25 min',note:'JR Chuo to Tokyo Station or bus to Shinagawa'},
+   ]
+  },
+];
+
+var stayStatus = LS.get('tk_stay_status', 'searching');
+var stayNotesList = LS.get('tk_stay_notes', []);
+
+function setStayStatus(s){
+  stayStatus = s;
+  LS.set('tk_stay_status', s);
+  renderStay();
+}
+
+function saveStayNote(){
+  var ta = document.getElementById('stay-notes');
+  if(!ta||!ta.value.trim()) return;
+  stayNotesList.push({text:ta.value.trim(), date:today()});
+  LS.set('tk_stay_notes', stayNotesList);
+  ta.value = '';
+  renderStay();
+}
+
+function renderStay(){
+  // Status
+  var st = document.getElementById('stay-status-text');
+  var labels = {searching:'Searching — ryokans fully booked', found:'Found a place — comparing options', booked:'BOOKED'};
+  if(st) st.textContent = labels[stayStatus] || '';
+  document.querySelectorAll('.stay-status-btn').forEach(function(btn){
+    var active = btn.getAttribute('data-s') === stayStatus;
+    btn.style.background = active ? 'var(--ink)' : 'none';
+    btn.style.color = active ? 'var(--paper)' : 'var(--ink3)';
+    btn.style.borderColor = active ? 'var(--ink)' : 'var(--paper3)';
+  });
+
+  // Airbnb filters
+  var af = document.getElementById('airbnb-filters');
+  if(af){
+    af.innerHTML='';
+    AIRBNB_FILTERS.forEach(function(f){
+      var card = document.createElement('div');
+      card.style.cssText='display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--paper3)';
+      var ico = document.createElement('div');ico.style.cssText='font-size:18px;flex-shrink:0;width:24px;text-align:center';ico.textContent=f.icon;
+      var info = document.createElement('div');
+      var lbl = document.createElement('div');lbl.style.cssText='font-size:13px;font-weight:500;color:var(--ink)';lbl.textContent=f.label;
+      var note = document.createElement('div');note.style.cssText='font-size:12px;color:var(--ink3);margin-top:2px';note.textContent=f.note;
+      info.appendChild(lbl);info.appendChild(note);
+      card.appendChild(ico);card.appendChild(info);
+      af.appendChild(card);
+    });
+  }
+
+  // Neighborhoods
+  var nb = document.getElementById('neighborhoods');
+  if(nb){
+    nb.innerHTML='';
+    NEIGHBORHOODS.forEach(function(n){
+      var card = document.createElement('div');
+      card.style.cssText='background:var(--paper2);border-radius:10px;padding:14px;margin-bottom:10px;border-left:3px solid '+n.color;
+      var row = document.createElement('div');row.style.cssText='display:flex;align-items:center;gap:8px;margin-bottom:4px';
+      var ico = document.createElement('span');ico.style.fontSize='18px';ico.textContent=n.icon;
+      var name = document.createElement('div');name.style.cssText='font-family:Playfair Display,serif;font-size:16px;color:var(--ink)';name.textContent=n.name;
+      row.appendChild(ico);row.appendChild(name);
+      var vibe = document.createElement('div');vibe.style.cssText='font-size:12px;color:var(--ink3);margin-bottom:4px';vibe.textContent=n.vibe;
+      var best = document.createElement('div');best.style.cssText='font-size:12px;color:'+n.color+';font-style:italic';best.textContent=n.best;
+      card.appendChild(row);card.appendChild(vibe);card.appendChild(best);
+      if(n.link){
+        var lnk=document.createElement('a');
+        lnk.href=n.link;lnk.target='_blank';
+        lnk.style.cssText='display:inline-block;margin-top:8px;font-size:12px;color:'+n.color+';text-decoration:underline;font-family:DM Sans,sans-serif;letter-spacing:.04em';
+        lnk.textContent=n.linkLabel||'Read more →';
+        card.appendChild(lnk);
+      }
+      // Travel times
+      if(n.times && n.times.length){
+        var tlabel=document.createElement('div');
+        tlabel.style.cssText='font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin:14px 0 8px';
+        tlabel.textContent='Travel times from here';
+        card.appendChild(tlabel);
+        var tgrid=document.createElement('div');
+        tgrid.style.cssText='display:grid;grid-template-columns:1fr 1fr;gap:6px';
+        n.times.forEach(function(t){
+          var tc=document.createElement('div');
+          tc.style.cssText='background:var(--paper);border-radius:6px;padding:8px 10px';
+          var td=document.createElement('div');td.style.cssText='font-size:13px;font-weight:500;color:var(--ink)';td.textContent=t.dest;
+          var tt=document.createElement('div');tt.style.cssText='font-size:14px;font-weight:700;color:'+n.color+';font-family:DM Sans,sans-serif;margin:2px 0';tt.textContent=t.time;
+          var tn=document.createElement('div');tn.style.cssText='font-size:10px;color:var(--ink3);line-height:1.3';tn.textContent=t.note;
+          tc.appendChild(td);tc.appendChild(tt);tc.appendChild(tn);
+          tgrid.appendChild(tc);
+        });
+        card.appendChild(tgrid);
+      }
+      // Accommodation options
+      if(n.stays && n.stays.length){
+        var slabel=document.createElement('div');
+        slabel.style.cssText='font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin:14px 0 8px';
+        slabel.textContent='Where to stay in this neighborhood';
+        card.appendChild(slabel);
+        n.stays.forEach(function(s){
+          var sc=document.createElement('div');
+          sc.style.cssText='background:var(--paper);border-radius:8px;padding:12px;margin-bottom:8px';
+          var sn=document.createElement('div');sn.style.cssText='font-size:13px;font-weight:500;color:var(--ink);margin-bottom:2px';sn.textContent=s.name;
+          var st=document.createElement('div');st.style.cssText='font-size:11px;color:'+n.color+';letter-spacing:.04em;text-transform:uppercase;margin-bottom:4px';st.textContent=s.type;
+          var snt=document.createElement('div');snt.style.cssText='font-size:12px;color:var(--ink3);line-height:1.5;margin-bottom:6px';snt.textContent=s.note;
+          sc.appendChild(sn);sc.appendChild(st);sc.appendChild(snt);
+          if(s.url){
+            var sl=document.createElement('a');sl.href=s.url;sl.target='_blank';
+            sl.style.cssText='font-size:12px;color:'+n.color+';text-decoration:underline';
+            sl.textContent='View on Airbnb →';
+            sc.appendChild(sl);
+          }
+          card.appendChild(sc);
+        });
+      }
+      nb.appendChild(card);
+    });
+  }
+
+  // Saved notes
+  var sn = document.getElementById('stay-notes-saved');
+  if(sn){
+    sn.innerHTML='';
+    stayNotesList.slice().reverse().forEach(function(n){
+      var card = document.createElement('div');card.style.cssText='background:var(--paper2);border-radius:8px;padding:12px;margin-bottom:8px';
+      var txt = document.createElement('div');txt.style.cssText='font-size:13px;color:var(--ink2);line-height:1.5;white-space:pre-wrap';txt.textContent=n.text;
+      var dt = document.createElement('div');dt.style.cssText='font-size:11px;color:var(--ink3);margin-top:4px';dt.textContent=n.date;
+      card.appendChild(txt);card.appendChild(dt);
+      sn.appendChild(card);
+    });
+  }
+}
+
+
 // INIT
+applyDark();
 initDate();
 render();
 </script>
