@@ -444,9 +444,19 @@ function addCustomPlace(){
 }
 
 function toggleDay(idx){
-  dayState[idx].open=!dayState[idx].open;
-  save();
-  renderDays();
+  // Try direct DOM manipulation first for instant response
+  var body = document.getElementById('day-body-'+idx);
+  var arrow = document.getElementById('day-arrow-'+idx);
+  if(body){
+    dayState[idx].open = !dayState[idx].open;
+    body.style.display = dayState[idx].open ? 'block' : 'none';
+    if(arrow) arrow.textContent = dayState[idx].open ? '▲' : '▼';
+    save();
+  } else {
+    dayState[idx].open=!dayState[idx].open;
+    save();
+    renderDays();
+  }
 }
 
 function renderDays(){
@@ -478,7 +488,7 @@ function renderDays(){
 
     var right=document.createElement('div');right.style.cssText='display:flex;align-items:center;gap:8px;flex-shrink:0;padding-left:8px';
     var ico=document.createElement('div');ico.className='day-icon';ico.textContent=day.icon;
-    var arrow=document.createElement('div');arrow.style.cssText='font-size:16px;color:var(--ink3);font-weight:700;transition:transform .2s';arrow.textContent=isOpen?'▲':'▼';
+    var arrow=document.createElement('div');arrow.id='day-arrow-'+di;arrow.style.cssText='font-size:16px;color:var(--ink3);font-weight:700;transition:transform .2s';arrow.textContent=isOpen?'▲':'▼';
     right.appendChild(ico);right.appendChild(arrow);
 
     tapArea.appendChild(hdrLeft);tapArea.appendChild(right);
@@ -501,7 +511,10 @@ function renderDays(){
 
     // Expandable body
     var body=document.createElement('div');
-    body.className='day-body'+(isOpen?' open':'');
+    body.className='day-body';
+    body.id='day-body-'+di;
+    body.style.display=isOpen?'block':'none';
+    body.style.padding='0 0 12px 0';
 
     // Tips
     if(day.tips.length){
