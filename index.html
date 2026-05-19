@@ -54,7 +54,7 @@ body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;f
 .day-card:last-child::before{display:none}
 .day-dot{position:absolute;left:0;top:22px;width:13px;height:13px;border-radius:50%;border:2px solid var(--ink);background:var(--paper);z-index:1;transition:all .2s}
 .day-dot.done{background:var(--ink);border-color:var(--ink)}
-.day-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px;cursor:pointer}
+.day-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px;cursor:pointer;-webkit-tap-highlight-color:rgba(0,0,0,0.1);user-select:none;-webkit-user-select:none}
 .day-meta{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:4px}
 .day-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:400;color:var(--ink);line-height:1.2}
 .day-icon{font-size:22px;flex-shrink:0;margin-left:8px;margin-top:2px}
@@ -345,7 +345,16 @@ var DAYS=[
 ];
 
 var PLACES_CUSTOM=LS.get('tk_places',[]);
-var dayState=LS.get('tk_days',DAYS.map(function(){return {tasks:[],note:'',open:false};}));
+var dayState=(function(){
+  var saved=LS.get('tk_days',null);
+  var defaults=DAYS.map(function(){return {tasks:[],note:'',open:false};});
+  if(!saved) return defaults;
+  // Merge saved with defaults to ensure all properties exist
+  return defaults.map(function(def,i){
+    var s=saved[i]||{};
+    return {tasks:s.tasks||[],note:s.note||'',open:s.open||false};
+  });
+})();
 
 function save(){
   LS.set('tk_days',dayState);
@@ -390,7 +399,13 @@ function renderDays(){
 
     var hdr=document.createElement('div');
     hdr.className='day-header';
-    hdr.onclick=(function(idx){return function(){dayState[idx].open=!dayState[idx].open;save();renderDays();};})(di);
+    hdr.onclick=(function(idx){return function(e){
+      e.stopPropagation();
+      dayState[idx].open=!dayState[idx].open;
+      save();
+      renderDays();
+    };})(di);
+    hdr.style.cursor='pointer';
 
     var hdrLeft=document.createElement('div');
     var meta=document.createElement('div');meta.className='day-meta';meta.textContent=day.day+' · '+day.date;
@@ -401,6 +416,7 @@ function renderDays(){
     card.appendChild(hdr);
 
     var desc=document.createElement('div');desc.className='day-desc';desc.textContent=day.desc;
+    desc.style.pointerEvents='none';
     card.appendChild(desc);
 
     // Progress indicator
