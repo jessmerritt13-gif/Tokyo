@@ -381,12 +381,19 @@ function initDate(){
 }
 
 // RENDER ITINERARY
+function toggleDay(idx){
+  dayState[idx].open=!dayState[idx].open;
+  save();
+  renderDays();
+}
+
 function renderDays(){
   var el=document.getElementById('days-container');
   if(!el)return;
   el.innerHTML='';
   DAYS.forEach(function(day,di){
     var state=dayState[di]||{tasks:[],note:'',open:false};
+    var isOpen=!!state.open;
     var tasksDone=day.tasks.filter(function(t,ti){return state.tasks[ti];}).length;
     var allDone=tasksDone===day.tasks.length;
 
@@ -397,26 +404,25 @@ function renderDays(){
     dot.className='day-dot'+(allDone?' done':'');
     card.appendChild(dot);
 
-    var hdr=document.createElement('div');
-    hdr.className='day-header';
-    hdr.onclick=(function(idx){return function(e){
-      e.stopPropagation();
-      dayState[idx].open=!dayState[idx].open;
-      save();
-      renderDays();
-    };})(di);
-    hdr.style.cursor='pointer';
+    // Entire tap area — title + icon + arrow all in one big button
+    var tapArea=document.createElement('div');
+    tapArea.style.cssText='display:flex;align-items:flex-start;justify-content:space-between;cursor:pointer;padding:4px 0 8px;-webkit-tap-highlight-color:rgba(0,0,0,.05);user-select:none;-webkit-user-select:none';
+    tapArea.setAttribute('onclick','toggleDay('+di+')');
 
-    var hdrLeft=document.createElement('div');
+    var hdrLeft=document.createElement('div');hdrLeft.style.flex='1';
     var meta=document.createElement('div');meta.className='day-meta';meta.textContent=day.day+' · '+day.date;
     var title=document.createElement('div');title.className='day-title';title.textContent=day.title;
     hdrLeft.appendChild(meta);hdrLeft.appendChild(title);
+
+    var right=document.createElement('div');right.style.cssText='display:flex;align-items:center;gap:8px;flex-shrink:0;padding-left:8px';
     var ico=document.createElement('div');ico.className='day-icon';ico.textContent=day.icon;
-    hdr.appendChild(hdrLeft);hdr.appendChild(ico);
-    card.appendChild(hdr);
+    var arrow=document.createElement('div');arrow.style.cssText='font-size:16px;color:var(--ink3);font-weight:700;transition:transform .2s';arrow.textContent=isOpen?'▲':'▼';
+    right.appendChild(ico);right.appendChild(arrow);
+
+    tapArea.appendChild(hdrLeft);tapArea.appendChild(right);
+    card.appendChild(tapArea);
 
     var desc=document.createElement('div');desc.className='day-desc';desc.textContent=day.desc;
-    desc.style.pointerEvents='none';
     card.appendChild(desc);
 
     // Progress indicator
@@ -433,7 +439,7 @@ function renderDays(){
 
     // Expandable body
     var body=document.createElement('div');
-    body.className='day-body'+(state.open?' open':'');
+    body.className='day-body'+(isOpen?' open':'');
 
     // Tips
     if(day.tips.length){
