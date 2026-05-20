@@ -255,24 +255,292 @@ body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;f
     <h2 style="font-family:'Playfair Display',serif;font-size:28px;font-weight:400;color:var(--ink)">Packing List</h2>
     <p style="font-size:13px;color:var(--ink3);margin-top:4px">Check off as you pack</p>
   </div>
-  <!-- Packer toggle -->
-  <div style="display:flex;gap:8px;margin-bottom:20px">
-    <button onclick="setPacker('jess')" id="pack-btn-jess" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--ink);background:var(--ink);color:var(--paper);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;font-weight:500">Jess</button>
-    <button onclick="setPacker('jack')" id="pack-btn-jack" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--paper3);background:none;color:var(--ink3);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer">Jack</button>
+  <div style="display:flex;gap:8px;margin-bottom:16px">
+    <button id="pack-btn-jess" onclick="showPacker('jess')" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--ink);background:var(--ink);color:var(--paper);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;font-weight:500">Jess</button>
+    <button id="pack-btn-jack" onclick="showPacker('jack')" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--paper3);background:none;color:var(--ink3);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer">Jack</button>
   </div>
   <div style="display:flex;align-items:center;gap:8px;margin-bottom:20px">
-    <div style="flex:1;height:3px;background:var(--paper3);border-radius:2px;overflow:hidden"><div id="pack-fill" style="height:100%;background:var(--ink);border-radius:2px;transition:width .4s ease;width:0%"></div></div>
-    <div style="font-size:12px;color:var(--ink3);white-space:nowrap" id="pack-count">0 / 0 packed</div>
+    <div style="flex:1;height:3px;background:var(--paper3);border-radius:2px;overflow:hidden">
+      <div id="pack-fill" style="height:100%;background:var(--ink);border-radius:2px;transition:width .4s ease;width:0%"></div>
+    </div>
+    <div style="font-size:12px;color:var(--ink3);white-space:nowrap" id="pack-count">0 / 33</div>
   </div>
-  <div id="pack-list"></div>
-</div>
-
-
-<!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox" onclick="closeLightbox()">
-  <button class="lightbox-close" onclick="closeLightbox()">&#x2715;</button>
-  <img id="lightbox-img" src="" alt="">
-  <div class="lightbox-caption" id="lightbox-caption"></div>
+  <div id="pack-jess">
+  <div class="pack-section" id="pack-cat-jess-0">
+    <div class="pack-section-title">Documents</div>
+    <div class="task" onclick="tapPack('jess',0,0)" style="cursor:pointer" id="pack-row-jess-0-0">
+      <div class="task-check" id="pack-chk-jess-0-0"></div>
+      <div class="task-text" id="pack-txt-jess-0-0">Passport — valid 6+ months past Oct 2026</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',0,1)" style="cursor:pointer" id="pack-row-jess-0-1">
+      <div class="task-check" id="pack-chk-jess-0-1"></div>
+      <div class="task-text" id="pack-txt-jess-0-1">Flight confirmation — UA 803/804 ref EFX3H4</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',0,2)" style="cursor:pointer" id="pack-row-jess-0-2">
+      <div class="task-check" id="pack-chk-jess-0-2"></div>
+      <div class="task-text" id="pack-txt-jess-0-2">Accommodation confirmation</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',0,3)" style="cursor:pointer" id="pack-row-jess-0-3">
+      <div class="task-check" id="pack-chk-jess-0-3"></div>
+      <div class="task-text" id="pack-txt-jess-0-3">Chase Sapphire Reserve card</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',0,4)" style="cursor:pointer" id="pack-row-jess-0-4">
+      <div class="task-check" id="pack-chk-jess-0-4"></div>
+      <div class="task-text" id="pack-txt-jess-0-4">Travel insurance info</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',0,5)" style="cursor:pointer" id="pack-row-jess-0-5">
+      <div class="task-check" id="pack-chk-jess-0-5"></div>
+      <div class="task-text" id="pack-txt-jess-0-5">Emergency contacts written down</div>
+    </div>
+  </div>
+  <div class="pack-section" id="pack-cat-jess-1">
+    <div class="pack-section-title">Money</div>
+    <div class="task" onclick="tapPack('jess',1,0)" style="cursor:pointer" id="pack-row-jess-1-0">
+      <div class="task-check" id="pack-chk-jess-1-0"></div>
+      <div class="task-text" id="pack-txt-jess-1-0">Yen cash — at least 30,000 yen</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',1,1)" style="cursor:pointer" id="pack-row-jess-1-1">
+      <div class="task-check" id="pack-chk-jess-1-1"></div>
+      <div class="task-text" id="pack-txt-jess-1-1">Backup debit card</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',1,2)" style="cursor:pointer" id="pack-row-jess-1-2">
+      <div class="task-check" id="pack-chk-jess-1-2"></div>
+      <div class="task-text" id="pack-txt-jess-1-2">Suica card (get at Haneda on arrival)</div>
+    </div>
+  </div>
+  <div class="pack-section" id="pack-cat-jess-2">
+    <div class="pack-section-title">Tech</div>
+    <div class="task" onclick="tapPack('jess',2,0)" style="cursor:pointer" id="pack-row-jess-2-0">
+      <div class="task-check" id="pack-chk-jess-2-0"></div>
+      <div class="task-text" id="pack-txt-jess-2-0">Phone + charger</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',2,1)" style="cursor:pointer" id="pack-row-jess-2-1">
+      <div class="task-check" id="pack-chk-jess-2-1"></div>
+      <div class="task-text" id="pack-txt-jess-2-1">Portable power bank</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',2,2)" style="cursor:pointer" id="pack-row-jess-2-2">
+      <div class="task-check" id="pack-chk-jess-2-2"></div>
+      <div class="task-text" id="pack-txt-jess-2-2">Noise canceling headphones for flight</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',2,3)" style="cursor:pointer" id="pack-row-jess-2-3">
+      <div class="task-check" id="pack-chk-jess-2-3"></div>
+      <div class="task-text" id="pack-txt-jess-2-3">ANA app downloaded</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',2,4)" style="cursor:pointer" id="pack-row-jess-2-4">
+      <div class="task-check" id="pack-chk-jess-2-4"></div>
+      <div class="task-text" id="pack-txt-jess-2-4">Google Translate — Japanese pack offline</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',2,5)" style="cursor:pointer" id="pack-row-jess-2-5">
+      <div class="task-check" id="pack-chk-jess-2-5"></div>
+      <div class="task-text" id="pack-txt-jess-2-5">DisneySea app downloaded</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',2,6)" style="cursor:pointer" id="pack-row-jess-2-6">
+      <div class="task-check" id="pack-chk-jess-2-6"></div>
+      <div class="task-text" id="pack-txt-jess-2-6">Tokyo Metro app downloaded</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',2,7)" style="cursor:pointer" id="pack-row-jess-2-7">
+      <div class="task-check" id="pack-chk-jess-2-7"></div>
+      <div class="task-text" id="pack-txt-jess-2-7">International roaming or Airalo eSIM loaded</div>
+    </div>
+  </div>
+  <div class="pack-section" id="pack-cat-jess-3">
+    <div class="pack-section-title">Clothes</div>
+    <div class="task" onclick="tapPack('jess',3,0)" style="cursor:pointer" id="pack-row-jess-3-0">
+      <div class="task-check" id="pack-chk-jess-3-0"></div>
+      <div class="task-text" id="pack-txt-jess-3-0">7 days of clothes — dressy-casual</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',3,1)" style="cursor:pointer" id="pack-row-jess-3-1">
+      <div class="task-check" id="pack-chk-jess-3-1"></div>
+      <div class="task-text" id="pack-txt-jess-3-1">Comfortable walking shoes — 15k steps/day</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',3,2)" style="cursor:pointer" id="pack-row-jess-3-2">
+      <div class="task-check" id="pack-chk-jess-3-2"></div>
+      <div class="task-text" id="pack-txt-jess-3-2">Slip-on shoes — temples require shoe removal</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',3,3)" style="cursor:pointer" id="pack-row-jess-3-3">
+      <div class="task-check" id="pack-chk-jess-3-3"></div>
+      <div class="task-text" id="pack-txt-jess-3-3">Light jacket — October evenings get cool</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',3,4)" style="cursor:pointer" id="pack-row-jess-3-4">
+      <div class="task-check" id="pack-chk-jess-3-4"></div>
+      <div class="task-text" id="pack-txt-jess-3-4">Compression socks for the 14hr flight</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',3,5)" style="cursor:pointer" id="pack-row-jess-3-5">
+      <div class="task-check" id="pack-chk-jess-3-5"></div>
+      <div class="task-text" id="pack-txt-jess-3-5">One nicer outfit for Golden Gai night</div>
+    </div>
+  </div>
+  <div class="pack-section" id="pack-cat-jess-4">
+    <div class="pack-section-title">Health</div>
+    <div class="task" onclick="tapPack('jess',4,0)" style="cursor:pointer" id="pack-row-jess-4-0">
+      <div class="task-check" id="pack-chk-jess-4-0"></div>
+      <div class="task-text" id="pack-txt-jess-4-0">Any prescription medications</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',4,1)" style="cursor:pointer" id="pack-row-jess-4-1">
+      <div class="task-check" id="pack-chk-jess-4-1"></div>
+      <div class="task-text" id="pack-txt-jess-4-1">Ibuprofen / pain relief</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',4,2)" style="cursor:pointer" id="pack-row-jess-4-2">
+      <div class="task-check" id="pack-chk-jess-4-2"></div>
+      <div class="task-text" id="pack-txt-jess-4-2">Knee brace if needed for walking days</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',4,3)" style="cursor:pointer" id="pack-row-jess-4-3">
+      <div class="task-check" id="pack-chk-jess-4-3"></div>
+      <div class="task-text" id="pack-txt-jess-4-3">Blister bandages — essential</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',4,4)" style="cursor:pointer" id="pack-row-jess-4-4">
+      <div class="task-check" id="pack-chk-jess-4-4"></div>
+      <div class="task-text" id="pack-txt-jess-4-4">Sunscreen</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',4,5)" style="cursor:pointer" id="pack-row-jess-4-5">
+      <div class="task-check" id="pack-chk-jess-4-5"></div>
+      <div class="task-text" id="pack-txt-jess-4-5">Deodorant — hard to find Western brands there</div>
+    </div>
+  </div>
+  <div class="pack-section" id="pack-cat-jess-5">
+    <div class="pack-section-title">Nice to Have</div>
+    <div class="task" onclick="tapPack('jess',5,0)" style="cursor:pointer" id="pack-row-jess-5-0">
+      <div class="task-check" id="pack-chk-jess-5-0"></div>
+      <div class="task-text" id="pack-txt-jess-5-0">Small day backpack</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',5,1)" style="cursor:pointer" id="pack-row-jess-5-1">
+      <div class="task-check" id="pack-chk-jess-5-1"></div>
+      <div class="task-text" id="pack-txt-jess-5-1">Collapsible umbrella</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',5,2)" style="cursor:pointer" id="pack-row-jess-5-2">
+      <div class="task-check" id="pack-chk-jess-5-2"></div>
+      <div class="task-text" id="pack-txt-jess-5-2">Empty bag for souvenirs</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',5,3)" style="cursor:pointer" id="pack-row-jess-5-3">
+      <div class="task-check" id="pack-chk-jess-5-3"></div>
+      <div class="task-text" id="pack-txt-jess-5-3">Earplugs for flight</div>
+    </div>
+  </div>
+  </div>
+  <div id="pack-jack" style="display:none">
+  <div class="pack-section" id="pack-cat-jack-0">
+    <div class="pack-section-title">Documents</div>
+    <div class="task" onclick="tapPack('jack',0,0)" style="cursor:pointer" id="pack-row-jack-0-0">
+      <div class="task-check" id="pack-chk-jack-0-0"></div>
+      <div class="task-text" id="pack-txt-jack-0-0">Passport — valid 6+ months past Oct 2026</div>
+    </div>
+    <div class="task" onclick="tapPack('jack',0,1)" style="cursor:pointer" id="pack-row-jack-0-1">
+      <div class="task-check" id="pack-chk-jack-0-1"></div>
+      <div class="task-text" id="pack-txt-jack-0-1">Student ID (useful for some discounts)</div>
+    </div>
+    <div class="task" onclick="tapPack('jack',0,2)" style="cursor:pointer" id="pack-row-jack-0-2">
+      <div class="task-check" id="pack-chk-jack-0-2"></div>
+      <div class="task-text" id="pack-txt-jack-0-2">Flight confirmation screenshot — ref EFX3H4</div>
+    </div>
+    <div class="task" onclick="tapPack('jack',0,3)" style="cursor:pointer" id="pack-row-jack-0-3">
+      <div class="task-check" id="pack-chk-jack-0-3"></div>
+      <div class="task-text" id="pack-txt-jack-0-3">Emergency contacts</div>
+    </div>
+  </div>
+  <div class="pack-section" id="pack-cat-jack-1">
+    <div class="pack-section-title">Money</div>
+    <div class="task" onclick="tapPack('jack',1,0)" style="cursor:pointer" id="pack-row-jack-1-0">
+      <div class="task-check" id="pack-chk-jack-1-0"></div>
+      <div class="task-text" id="pack-txt-jack-1-0">Yen cash — at least 20,000 yen</div>
+    </div>
+    <div class="task" onclick="tapPack('jack',1,1)" style="cursor:pointer" id="pack-row-jack-1-1">
+      <div class="task-check" id="pack-chk-jack-1-1"></div>
+      <div class="task-text" id="pack-txt-jack-1-1">Debit or credit card for emergencies</div>
+    </div>
+  </div>
+  <div class="pack-section" id="pack-cat-jack-2">
+    <div class="pack-section-title">Tech</div>
+    <div class="task" onclick="tapPack('jack',2,0)" style="cursor:pointer" id="pack-row-jack-2-0">
+      <div class="task-check" id="pack-chk-jack-2-0"></div>
+      <div class="task-text" id="pack-txt-jack-2-0">Phone + charger</div>
+    </div>
+    <div class="task" onclick="tapPack('jack',2,1)" style="cursor:pointer" id="pack-row-jack-2-1">
+      <div class="task-check" id="pack-chk-jack-2-1"></div>
+      <div class="task-text" id="pack-txt-jack-2-1">Portable power bank</div>
+    </div>
+    <div class="task" onclick="tapPack('jack',2,2)" style="cursor:pointer" id="pack-row-jack-2-2">
+      <div class="task-check" id="pack-chk-jack-2-2"></div>
+      <div class="task-text" id="pack-txt-jack-2-2">Headphones for flight</div>
+    </div>
+    <div class="task" onclick="tapPack('jack',2,3)" style="cursor:pointer" id="pack-row-jack-2-3">
+      <div class="task-check" id="pack-chk-jack-2-3"></div>
+      <div class="task-text" id="pack-txt-jack-2-3">Google Translate — Japanese pack offline</div>
+    </div>
+    <div class="task" onclick="tapPack('jack',2,4)" style="cursor:pointer" id="pack-row-jack-2-4">
+      <div class="task-check" id="pack-chk-jack-2-4"></div>
+      <div class="task-text" id="pack-txt-jack-2-4">DisneySea app downloaded</div>
+    </div>
+    <div class="task" onclick="tapPack('jack',2,5)" style="cursor:pointer" id="pack-row-jack-2-5">
+      <div class="task-check" id="pack-chk-jack-2-5"></div>
+      <div class="task-text" id="pack-txt-jack-2-5">Tokyo Metro app downloaded</div>
+    </div>
+    <div class="task" onclick="tapPack('jack',2,6)" style="cursor:pointer" id="pack-row-jack-2-6">
+      <div class="task-check" id="pack-chk-jack-2-6"></div>
+      <div class="task-text" id="pack-txt-jack-2-6">International roaming or Airalo eSIM loaded</div>
+    </div>
+  </div>
+  <div class="pack-section" id="pack-cat-jack-3">
+    <div class="pack-section-title">Clothes</div>
+    <div class="task" onclick="tapPack('jack',3,0)" style="cursor:pointer" id="pack-row-jack-3-0">
+      <div class="task-check" id="pack-chk-jack-3-0"></div>
+      <div class="task-text" id="pack-txt-jack-3-0">7 days of clothes</div>
+    </div>
+    <div class="task" onclick="tapPack('jack',3,1)" style="cursor:pointer" id="pack-row-jack-3-1">
+      <div class="task-check" id="pack-chk-jack-3-1"></div>
+      <div class="task-text" id="pack-txt-jack-3-1">Comfortable walking shoes</div>
+    </div>
+    <div class="task" onclick="tapPack('jack',3,2)" style="cursor:pointer" id="pack-row-jack-3-2">
+      <div class="task-check" id="pack-chk-jack-3-2"></div>
+      <div class="task-text" id="pack-txt-jack-3-2">Slip-on shoes for temples</div>
+    </div>
+    <div class="task" onclick="tapPack('jack',3,3)" style="cursor:pointer" id="pack-row-jack-3-3">
+      <div class="task-check" id="pack-chk-jack-3-3"></div>
+      <div class="task-text" id="pack-txt-jack-3-3">Light jacket</div>
+    </div>
+    <div class="task" onclick="tapPack('jack',3,4)" style="cursor:pointer" id="pack-row-jack-3-4">
+      <div class="task-check" id="pack-chk-jack-3-4"></div>
+      <div class="task-text" id="pack-txt-jack-3-4">One decent outfit for Golden Gai</div>
+    </div>
+  </div>
+  <div class="pack-section" id="pack-cat-jack-4">
+    <div class="pack-section-title">Health</div>
+    <div class="task" onclick="tapPack('jack',4,0)" style="cursor:pointer" id="pack-row-jack-4-0">
+      <div class="task-check" id="pack-chk-jack-4-0"></div>
+      <div class="task-text" id="pack-txt-jack-4-0">Any personal medications</div>
+    </div>
+    <div class="task" onclick="tapPack('jack',4,1)" style="cursor:pointer" id="pack-row-jack-4-1">
+      <div class="task-check" id="pack-chk-jack-4-1"></div>
+      <div class="task-text" id="pack-txt-jack-4-1">Ibuprofen</div>
+    </div>
+    <div class="task" onclick="tapPack('jack',4,2)" style="cursor:pointer" id="pack-row-jack-4-2">
+      <div class="task-check" id="pack-chk-jack-4-2"></div>
+      <div class="task-text" id="pack-txt-jack-4-2">Blister bandages</div>
+    </div>
+    <div class="task" onclick="tapPack('jack',4,3)" style="cursor:pointer" id="pack-row-jack-4-3">
+      <div class="task-check" id="pack-chk-jack-4-3"></div>
+      <div class="task-text" id="pack-txt-jack-4-3">Sunscreen</div>
+    </div>
+  </div>
+  <div class="pack-section" id="pack-cat-jack-5">
+    <div class="pack-section-title">Nice to Have</div>
+    <div class="task" onclick="tapPack('jack',5,0)" style="cursor:pointer" id="pack-row-jack-5-0">
+      <div class="task-check" id="pack-chk-jack-5-0"></div>
+      <div class="task-text" id="pack-txt-jack-5-0">Day backpack</div>
+    </div>
+    <div class="task" onclick="tapPack('jack',5,1)" style="cursor:pointer" id="pack-row-jack-5-1">
+      <div class="task-check" id="pack-chk-jack-5-1"></div>
+      <div class="task-text" id="pack-txt-jack-5-1">Collapsible umbrella</div>
+    </div>
+    <div class="task" onclick="tapPack('jack',5,2)" style="cursor:pointer" id="pack-row-jack-5-2">
+      <div class="task-check" id="pack-chk-jack-5-2"></div>
+      <div class="task-text" id="pack-txt-jack-5-2">Camera if bringing one</div>
+    </div>
+    <div class="task" onclick="tapPack('jack',5,3)" style="cursor:pointer" id="pack-row-jack-5-3">
+      <div class="task-check" id="pack-chk-jack-5-3"></div>
+      <div class="task-text" id="pack-txt-jack-5-3">Empty bag for souvenirs</div>
+    </div>
+  </div>
+  </div>
 </div>
 
 <script>
@@ -387,7 +655,20 @@ function toggleTask(di, ti){
   if(!dayState[di]) dayState[di]={tasks:[],note:'',open:true};
   if(!dayState[di].tasks) dayState[di].tasks=[];
   dayState[di].tasks[ti]=!dayState[di].tasks[ti];
-  save(); renderDays();
+  var done=dayState[di].tasks[ti];
+  // Direct DOM update
+  var chk=document.getElementById('task-chk-'+di+'-'+ti);
+  var txt=document.getElementById('task-txt-'+di+'-'+ti);
+  if(chk){chk.className='task-check'+(done?' done':'');chk.textContent=done?'✓':'';}
+  if(txt){txt.className='task-text'+(done?' done':'');txt.style.textDecoration=done?'line-through':'none';}
+  // Update progress bar for this day
+  var day=DAYS[di];
+  var tasksDone=day.tasks.filter(function(t,ti2){return dayState[di].tasks[ti2];}).length;
+  var pf=document.getElementById('day-prog-fill-'+di);
+  var pc=document.getElementById('day-prog-cnt-'+di);
+  if(pf)pf.style.width=(day.tasks.length?Math.round(tasksDone/day.tasks.length*100):0)+'%';
+  if(pc)pc.textContent=tasksDone+'/'+day.tasks.length;
+  save();
 }
 
 function saveNote(di){
@@ -436,7 +717,23 @@ function togglePack(ci,ii,isJess){
   if(!ps[ci])ps[ci]=[];
   ps[ci][ii]=!ps[ci][ii];
   LS.set(sk,ps);
-  renderPacking();
+  // Direct DOM update — no full re-render
+  var rowId='pack-row-'+ci+'-'+ii;
+  var chkId='pack-chk-'+ci+'-'+ii;
+  var txtId='pack-txt-'+ci+'-'+ii;
+  var row=document.getElementById(rowId);
+  var chk=document.getElementById(chkId);
+  var txt=document.getElementById(txtId);
+  var packed=ps[ci][ii];
+  if(chk){chk.className='task-check'+(packed?' done':'');chk.textContent=packed?'✓':'';}
+  if(txt){txt.className='task-text'+(packed?' done':'');txt.style.textDecoration=packed?'line-through':'none';txt.style.color=packed?'var(--ink3)':'var(--ink2)';}
+  // Update progress bar
+  var packData=isJess?PACKING_JESS:PACKING_JACK;
+  var total=0,done=0;
+  packData.forEach(function(cat,c){cat.items.forEach(function(item,i){total++;if(ps[c]&&ps[c][i])done++;});});
+  var pct=total?Math.round(done/total*100):0;
+  var pf=document.getElementById('pack-fill');if(pf)pf.style.width=pct+'%';
+  var pc=document.getElementById('pack-count');if(pc)pc.textContent=done+' / '+total+' packed';
 }
 
 function addCustomPlace(){
@@ -582,9 +879,9 @@ function renderDays(){
       day.tasks.forEach(function(task,ti){
         var done=state.tasks[ti]||false;
         var row=document.createElement('div');row.className='task';
-        var chk=document.createElement('div');chk.className='task-check'+(done?' done':'');
+        var chk=document.createElement('div');chk.className='task-check'+(done?' done':'');chk.id='task-chk-'+di+'-'+ti;
         if(done)chk.textContent='✓';
-        var txt=document.createElement('div');txt.className='task-text'+(done?' done':'');txt.textContent=task.l;
+        var txt=document.createElement('div');txt.className='task-text'+(done?' done':'');txt.id='task-txt-'+di+'-'+ti;txt.textContent=task.l;
         row.appendChild(chk);row.appendChild(txt);
         row.setAttribute('onclick','toggleTask('+di+','+ti+')');
         row.style.cursor='pointer';
@@ -722,45 +1019,11 @@ function addPlace(){
 }
 
 // RENDER PACKING
-function renderPacking(){
-  var el=document.getElementById('pack-list');
-  if(!el)return;
-  el.innerHTML='';
-  var isJess = activePacker === 'jess';
-  var packData = isJess ? PACKING_JESS : PACKING_JACK;
-  var packState = isJess ? packStateJess : packStateJack;
-  var total=0,done=0;
-
-  packData.forEach(function(cat,ci){
-    var sec=document.createElement('div');sec.className='pack-section';
-    var stitle=document.createElement('div');stitle.className='pack-section-title';stitle.textContent=cat.cat;
-    sec.appendChild(stitle);
-    cat.items.forEach(function(item,ii){
-      var packed=packState[ci]&&packState[ci][ii];
-      total++;if(packed)done++;
-      var row=document.createElement('div');row.className='task';
-      var chk=document.createElement('div');chk.className='task-check'+(packed?' done':'');
-      if(packed)chk.textContent='✓';
-      var txt=document.createElement('div');txt.className='task-text'+(packed?' done':'');txt.textContent=item.l;
-      row.appendChild(chk);row.appendChild(txt);
-      row.setAttribute('onclick','togglePack('+ci+','+ii+','+(isJess?'true':'false')+')');
-      row.style.cursor='pointer';
-      sec.appendChild(row);
-    });
-    el.appendChild(sec);
-  });
-
-  var pct=total?Math.round(done/total*100):0;
-  var pf=document.getElementById('pack-fill');if(pf)pf.style.width=pct+'%';
-  var pc=document.getElementById('pack-count');if(pc)pc.textContent=done+' / '+total+' packed';
-  // Update toggle buttons
-  setPacker(activePacker);
-}
 
 function render(){
   if(activeTab==='itinerary')renderDays();
   else if(activeTab==='places')renderPlaces();
-  else if(activeTab==='packing')renderPacking();
+  else if(activeTab==='packing')initPacking();
 }
 
 
@@ -817,6 +1080,11 @@ function deletePhoto(di, pi) {
 
 
 // DARK MODE
+var APP_VERSION = '1.0';
+var savedVersion = LS.get('tk_version', '0');
+// If version changed, could reset state here in future
+LS.set('tk_version', APP_VERSION);
+
 var isDark = LS.get('tk_dark', false);
 function applyDark(){
   document.body.classList.toggle('dark', isDark);
@@ -833,112 +1101,66 @@ function toggleDark(){
   applyDark();
 }
 
-// PACKER TOGGLE
+// ── PACKING ──────────────────────────────────────────────────────────────────
 var activePacker = LS.get('tk_packer', 'jess');
-function setPacker(p){
-  activePacker = p;
-  LS.set('tk_packer', p);
-  var bj = document.getElementById('pack-btn-jess');
-  var bk = document.getElementById('pack-btn-jack');
-  if(bj){ bj.style.background = p==='jess'?'var(--ink)':'none'; bj.style.color = p==='jess'?'var(--paper)':'var(--ink3)'; bj.style.borderColor = p==='jess'?'var(--ink)':'var(--paper3)'; }
-  if(bk){ bk.style.background = p==='jack'?'var(--ink)':'none'; bk.style.color = p==='jack'?'var(--paper)':'var(--ink3)'; bk.style.borderColor = p==='jack'?'var(--ink)':'var(--paper3)'; }
-  renderPacking();
+var packJess = LS.get('pk_jess', {});
+var packJack = LS.get('pk_jack', {});
+
+function tapPack(person, ci, ii) {
+  var ps = person === 'jess' ? packJess : packJack;
+  var sk = person === 'jess' ? 'pk_jess' : 'pk_jack';
+  var key = ci + '-' + ii;
+  ps[key] = !ps[key];
+  LS.set(sk, ps);
+  var done = ps[key];
+  var chk = document.getElementById('pack-chk-' + person + '-' + ci + '-' + ii);
+  var txt = document.getElementById('pack-txt-' + person + '-' + ci + '-' + ii);
+  if (chk) { chk.className = 'task-check' + (done ? ' done' : ''); chk.textContent = done ? '\u2713' : ''; }
+  if (txt) { txt.style.textDecoration = done ? 'line-through' : 'none'; txt.style.color = done ? 'var(--ink3)' : 'var(--ink2)'; }
+  updatePackProgress(person);
 }
 
-// PACKING DATA — SPLIT BY PERSON
-var PACKING_JESS = [
-  {cat:'Documents',items:[
-    {l:'Passport — valid 6+ months past Oct 2026',d:false},
-    {l:'Flight confirmation — UA 803/804 ref EFX3H4',d:false},
-    {l:'Accommodation confirmation',d:false},
-    {l:'Chase Sapphire Reserve card',d:false},
-    {l:'Travel insurance info',d:false},
-    {l:'Emergency contacts written down',d:false}
-  ]},
-  {cat:'Money',items:[
-    {l:'Yen cash — at least 30,000 yen',d:false},
-    {l:'Backup debit card',d:false},
-    {l:'Suica card (get at Haneda on arrival)',d:false}
-  ]},
-  {cat:'Tech',items:[
-    {l:'Phone + charger',d:false},
-    {l:'Portable power bank',d:false},
-    {l:'Noise canceling headphones for flight',d:false},
-    {l:'ANA app downloaded',d:false},
-    {l:'Google Translate — Japanese pack offline',d:false},
-    {l:'DisneySea app downloaded',d:false},
-    {l:'Tokyo Metro app downloaded',d:false},
-    {l:'International roaming or Airalo eSIM loaded',d:false}
-  ]},
-  {cat:'Clothes',items:[
-    {l:'7 days of clothes — dressy-casual',d:false},
-    {l:'Comfortable walking shoes — 15k steps/day',d:false},
-    {l:'Slip-on shoes — temples require shoe removal',d:false},
-    {l:'Light jacket — October evenings get cool',d:false},
-    {l:'Compression socks for the 14hr flight',d:false},
-    {l:'One nicer outfit for Golden Gai night',d:false}
-  ]},
-  {cat:'Health',items:[
-    {l:'Any prescription medications',d:false},
-    {l:'Ibuprofen / pain relief',d:false},
-    {l:'Knee brace if needed for walking days',d:false},
-    {l:'Blister bandages — essential',d:false},
-    {l:'Sunscreen',d:false},
-    {l:'Deodorant — hard to find Western brands there',d:false}
-  ]},
-  {cat:'Nice to Have',items:[
-    {l:'Small day backpack',d:false},
-    {l:'Collapsible umbrella',d:false},
-    {l:'Empty bag for souvenirs',d:false},
-    {l:'Earplugs for flight',d:false}
-  ]}
-];
+function updatePackProgress(person) {
+  var ps = person === 'jess' ? packJess : packJack;
+  var total = person === 'jess' ? 33 : 26;
+  var done = Object.keys(ps).filter(function(k){ return ps[k]; }).length;
+  var pct = total ? Math.round(done / total * 100) : 0;
+  var pf = document.getElementById('pack-fill');
+  var pc = document.getElementById('pack-count');
+  if (pf) pf.style.width = pct + '%';
+  if (pc) pc.textContent = done + ' / ' + total;
+}
 
-var PACKING_JACK = [
-  {cat:'Documents',items:[
-    {l:'Passport — valid 6+ months past Oct 2026',d:false},
-    {l:'Student ID (useful for some discounts)',d:false},
-    {l:'Flight confirmation screenshot — ref EFX3H4',d:false},
-    {l:'Emergency contacts',d:false}
-  ]},
-  {cat:'Money',items:[
-    {l:'Yen cash — at least 20,000 yen',d:false},
-    {l:'Debit or credit card for emergencies',d:false}
-  ]},
-  {cat:'Tech',items:[
-    {l:'Phone + charger',d:false},
-    {l:'Portable power bank',d:false},
-    {l:'Headphones for flight',d:false},
-    {l:'Google Translate — Japanese pack offline',d:false},
-    {l:'DisneySea app downloaded',d:false},
-    {l:'Tokyo Metro app downloaded',d:false},
-    {l:'International roaming or Airalo eSIM loaded',d:false}
-  ]},
-  {cat:'Clothes',items:[
-    {l:'7 days of clothes',d:false},
-    {l:'Comfortable walking shoes',d:false},
-    {l:'Slip-on shoes for temples',d:false},
-    {l:'Light jacket',d:false},
-    {l:'One decent outfit for Golden Gai',d:false}
-  ]},
-  {cat:'Health',items:[
-    {l:'Any personal medications',d:false},
-    {l:'Ibuprofen',d:false},
-    {l:'Blister bandages',d:false},
-    {l:'Sunscreen',d:false}
-  ]},
-  {cat:'Nice to Have',items:[
-    {l:'Day backpack',d:false},
-    {l:'Collapsible umbrella',d:false},
-    {l:'Camera if bringing one',d:false},
-    {l:'Empty bag for souvenirs',d:false}
-  ]}
-];
+function showPacker(person) {
+  activePacker = person;
+  LS.set('tk_packer', person);
+  var isJess = person === 'jess';
+  var pj = document.getElementById('pack-jess');
+  var pk = document.getElementById('pack-jack');
+  if (pj) pj.style.display = isJess ? 'block' : 'none';
+  if (pk) pk.style.display = isJess ? 'none' : 'block';
+  var bj = document.getElementById('pack-btn-jess');
+  var bk = document.getElementById('pack-btn-jack');
+  if (bj) { bj.style.background = isJess ? 'var(--ink)' : 'none'; bj.style.color = isJess ? 'var(--paper)' : 'var(--ink3)'; bj.style.borderColor = isJess ? 'var(--ink)' : 'var(--paper3)'; }
+  if (bk) { bk.style.background = !isJess ? 'var(--ink)' : 'none'; bk.style.color = !isJess ? 'var(--paper)' : 'var(--ink3)'; bk.style.borderColor = !isJess ? 'var(--ink)' : 'var(--paper3)'; }
+  updatePackProgress(person);
+}
 
-var packStateJess = LS.get('tk_pack_jess', PACKING_JESS.map(function(cat){return cat.items.map(function(){return false;});}));
-var packStateJack = LS.get('tk_pack_jack', PACKING_JACK.map(function(cat){return cat.items.map(function(){return false;});}));
+function initPacking() {
+  ['jess', 'jack'].forEach(function(person) {
+    var ps = person === 'jess' ? packJess : packJack;
+    Object.keys(ps).forEach(function(key) {
+      if (!ps[key]) return;
+      var parts = key.split('-');
+      var chk = document.getElementById('pack-chk-' + person + '-' + parts[0] + '-' + parts[1]);
+      var txt = document.getElementById('pack-txt-' + person + '-' + parts[0] + '-' + parts[1]);
+      if (chk) { chk.className = 'task-check done'; chk.textContent = '\u2713'; }
+      if (txt) { txt.style.textDecoration = 'line-through'; txt.style.color = 'var(--ink3)'; }
+    });
+  });
+  showPacker(activePacker);
+}
 
-// STAY DATA
 var AIRBNB_FILTERS = [
   {icon:'🏠',label:'Entire home',note:'Not a private room — 7 nights, you need your own space'},
   {icon:'🛏️',label:'2 beds or 1 bed + sofa bed',note:'Confirm sleeping setup before booking'},
@@ -951,9 +1173,43 @@ var AIRBNB_FILTERS = [
 ];
 
 var NEIGHBORHOODS = [
+  {name:'Shinjuku',icon:'🌆',
+   vibe:'Central, massive, never sleeps. Golden Gai is a 10 min walk. Best raw transit scores of any neighborhood.',
+   best:'#1 MOST CONVENIENT — 33 min weighted average to all destinations',color:'#1a4a7a',
+   times:[
+     {dest:'Shibuya',time:'5 min',note:'JR Yamanote Line — 1 stop'},
+     {dest:'Shimokitazawa',time:'8 min',note:'Odakyu Line — 1 train, no transfer'},
+     {dest:'Golden Gai',time:'10 min walk',note:'Right in the neighborhood'},
+     {dest:'Meiji Shrine',time:'10 min',note:'JR Yamanote to Harajuku — 1 stop'},
+     {dest:'Akihabara',time:'20 min',note:'JR Chuo Line to Kanda, 3 stops'},
+     {dest:'Asakusa',time:'40 min',note:'Via Shibuya + Ginza Line or direct subway'},
+     {dest:'Tsukiji Market',time:'30 min',note:'Oedo Line to Tsukijishijo — direct'},
+     {dest:'DisneySea',time:'55-60 min',note:'Via Tokyo Station + JR Keiyo Line to Maihama'},
+     {dest:'Odaiba',time:'40 min',note:'Rinkai Line from Osaki — 1 transfer'},
+     {dest:'Haneda Airport',time:'40 min',note:'Bus from Shinjuku Bus Terminal — 40 min direct'},
+     {dest:'Kyoto (Shinkansen)',time:'2h 25 min',note:'JR Chuo to Tokyo Station or bus to Shinagawa'},
+   ]
+  },
+  {name:'Ueno',icon:'🌳',
+   vibe:'Practical hub. Parks, world-class museums, Ameyoko market. Less character than other neighborhoods but extremely well connected.',
+   best:'#2 MOST CONVENIENT — 39 min weighted average. Best Shinkansen access.',color:'#2d6a4f',
+   times:[
+     {dest:'Asakusa',time:'5 min',note:'Tokyo Metro Ginza Line — 1 stop'},
+     {dest:'Akihabara',time:'3 min',note:'JR Yamanote Line or short walk (20 min)'},
+     {dest:'Tsukiji Market',time:'20 min',note:'Ginza Line toward Shibuya — 3 stops'},
+     {dest:'Shibuya',time:'30 min',note:'Ginza Line direct — no transfer'},
+     {dest:'Shinjuku',time:'25 min',note:'JR Yamanote Line — fast and direct'},
+     {dest:'Shimokitazawa',time:'35-40 min',note:'Via Shibuya or Shinjuku'},
+     {dest:'DisneySea',time:'50 min',note:'JR Keiyo Line from Akihabara or Tokyo Station'},
+     {dest:'Odaiba',time:'55 min',note:'Via Shimbashi + Yurikamome'},
+     {dest:'Haneda Airport',time:'35 min',note:'JR Keihin-Tohoku to Shinagawa, then Keikyu Airport Line'},
+     {dest:'Kyoto (Shinkansen)',time:'2h 40 min',note:'JR to Tokyo Station or Shinagawa — easy Shinkansen access'},
+     {dest:'Meiji Shrine',time:'35 min',note:'Ginza Line to Shibuya, Yamanote to Harajuku'},
+   ]
+  },
   {name:'Shimokitazawa',icon:'🎸',
    vibe:'Indie neighborhood — vintage shops, live music, craft beer bars, great ramen. Zero tourists. Very different energy from central Tokyo.',
-   best:'TOP PICK — accommodation exists and is good',
+   best:'#3 — 41 min average. Best vibe by far. Your top pick for a reason.',
    link:'https://jw-webmagazine.com/tips/shimokitazawa-local-guide/',linkLabel:'Local guide →',color:'#7a3a8a',
    times:[
      {dest:'Shibuya',time:'6 min',note:'1 train, Inokashira Line — no transfer'},
@@ -968,16 +1224,16 @@ var NEIGHBORHOODS = [
      {dest:'Meiji Shrine',time:'15 min',note:'Via Shibuya → walk or 1 stop to Harajuku'},
    ],
    stays:[
-     {name:'illi Com Shimokitazawa',type:'Boutique hotel on Airbnb',note:'3 min walk from station. 50-80sqm rooms sleep up to 6-8. Kitchen, washing machine, AC, balcony. Opened 2023. Highly rated. Book on Airbnb or Booking.com.',url:'https://www.airbnb.com/rooms/1004580439987220711'},
+     {name:'illi Com Shimokitazawa',type:'Boutique hotel on Airbnb',note:'3 min walk from station. 50-80sqm rooms sleep up to 6-8. Kitchen, washing machine, AC, balcony. Opened 2023. Highly rated.',url:'https://www.airbnb.com/rooms/1004580439987220711'},
      {name:'illi Sun Shimokitazawa',type:'Boutique hotel on Airbnb',note:'1 min walk from station. 48sqm, sleeps 6. Same illi brand. Prime location.',url:'https://www.airbnb.com/rooms/39450545'},
-     {name:'MUSTARD HOTEL Shimokitazawa',type:'Boutique hotel',note:'Designed specifically around the neighborhood vibe. On Airbnb and direct booking. Breakfast included option.',url:'https://www.airbnb.com/rooms/53974318'},
-     {name:'MI-HOTEL Shimokitazawa',type:'Entire apartment',note:'Airbnb. Indie record store aesthetic, 3 min from station. Exactly the right vibe.',url:'https://www.airbnb.com/rooms/1617075523288032923'},
-     {name:'YOU-TEI Shimokitazawa 305',type:'Entire condo 40sqm',note:'Japanese-style condo, direct access to Shibuya and Shinjuku. Good reviews.',url:'https://www.airbnb.com/rooms/1229360376255595575'},
+     {name:'MUSTARD HOTEL Shimokitazawa',type:'Boutique hotel',note:'Designed around the neighborhood vibe. Breakfast option available.',url:'https://www.airbnb.com/rooms/53974318'},
+     {name:'MI-HOTEL Shimokitazawa',type:'Entire apartment',note:'Record store aesthetic, 3 min from station. Exactly the right vibe.',url:'https://www.airbnb.com/rooms/1617075523288032923'},
+     {name:'YOU-TEI Shimokitazawa 305',type:'Entire condo 40sqm',note:'Japanese-style condo, direct access to Shibuya and Shinjuku.',url:'https://www.airbnb.com/rooms/1229360376255595575'},
    ]
-},
+  },
   {name:'Asakusa',icon:'🏮',
-   vibe:'Traditional Tokyo. Walking distance to Senso-ji. Excellent transit. Quieter than central Tokyo.',
-   best:'Best base if not Shimokitazawa — ryokans were here, Airbnbs plentiful',color:'#c8392b',
+   vibe:'Traditional Tokyo. Walking distance to Senso-ji. Excellent transit. Where the ryokans were.',
+   best:'#4 — 45 min average. Best for Day 1 arrival and traditional atmosphere.',color:'#c8392b',
    times:[
      {dest:'Senso-ji',time:'2 min walk',note:'Right there — the whole point of Asakusa'},
      {dest:'Ueno',time:'5 min',note:'Tokyo Metro Ginza Line — 1 stop'},
@@ -995,7 +1251,7 @@ var NEIGHBORHOODS = [
   },
   {name:'Yanaka',icon:'🏘️',
    vibe:'Old Tokyo untouched. Quiet, local, temple cats, shotengai shopping street, zero chain stores.',
-   best:'Best atmosphere — feels like Tokyo 50 years ago. Adjacent to Asakusa travel times.',color:'#b8860b',
+   best:'#5 — 52 min average. Highest character, lowest convenience.',color:'#b8860b',
    times:[
      {dest:'Ueno',time:'10 min walk',note:'Or 1 stop on Chiyoda Line from Nezu'},
      {dest:'Asakusa',time:'15-20 min',note:'Walk to Ueno + Ginza Line, or bus'},
@@ -1008,41 +1264,7 @@ var NEIGHBORHOODS = [
      {dest:'Kyoto (Shinkansen)',time:'2h 50 min',note:'Via Ueno or Tokyo Station'},
    ]
   },
-  {name:'Ueno',icon:'🌳',
-   vibe:'Practical hub. Parks, world-class museums, Ameyoko market. Less character than Asakusa but very central.',
-   best:'Best for convenience — Shinkansen access easy, Asakusa 5 min away',color:'#2d6a4f',
-   times:[
-     {dest:'Asakusa',time:'5 min',note:'Tokyo Metro Ginza Line — 1 stop'},
-     {dest:'Akihabara',time:'3 min',note:'JR Yamanote Line or short walk (20 min)'},
-     {dest:'Tsukiji Market',time:'20 min',note:'Ginza Line toward Shibuya — 3 stops'},
-     {dest:'Shibuya',time:'30 min',note:'Ginza Line direct — no transfer'},
-     {dest:'Shinjuku',time:'25 min',note:'JR Yamanote Line — fast and direct'},
-     {dest:'Shimokitazawa',time:'35-40 min',note:'Via Shibuya or Shinjuku'},
-     {dest:'DisneySea',time:'50 min',note:'JR Keiyo Line from Akihabara or Tokyo Station'},
-     {dest:'Odaiba',time:'55 min',note:'Via Shimbashi + Yurikamome'},
-     {dest:'Haneda Airport',time:'35 min',note:'JR Keihin-Tohoku to Shinagawa, then Keikyu Airport Line'},
-     {dest:'Kyoto (Shinkansen)',time:'2h 40 min',note:'JR to Tokyo Station or Shinagawa — easy Shinkansen access'},
-     {dest:'Meiji Shrine',time:'35 min',note:'Ginza Line to Shibuya, Yamanote to Harajuku'},
-   ]
-  },
-  {name:'Shinjuku',icon:'🌆',
-   vibe:'Central, massive, never sleeps. Golden Gai is a 10 min walk. Great transit hub but loud and very touristy.',
-   best:'Good transit hub — but loud. Worth it only if Golden Gai access is the priority.',color:'#1a4a7a',
-   times:[
-     {dest:'Shibuya',time:'5 min',note:'JR Yamanote Line — 1 stop'},
-     {dest:'Shimokitazawa',time:'8 min',note:'Odakyu Line — 1 train, no transfer'},
-     {dest:'Golden Gai',time:'10 min walk',note:'Right in the neighborhood'},
-     {dest:'Meiji Shrine',time:'10 min',note:'JR Yamanote to Harajuku — 1 stop'},
-     {dest:'Akihabara',time:'20 min',note:'JR Chuo Line to Kanda, 3 stops'},
-     {dest:'Asakusa',time:'40 min',note:'Via Shibuya + Ginza Line or direct subway'},
-     {dest:'Tsukiji Market',time:'30 min',note:'Oedo Line to Tsukijishijo — direct'},
-     {dest:'DisneySea',time:'55-60 min',note:'Via Tokyo Station + JR Keiyo Line to Maihama'},
-     {dest:'Odaiba',time:'40 min',note:'Rinkai Line from Osaki — 1 transfer'},
-     {dest:'Haneda Airport',time:'40 min',note:'Bus from Shinjuku Bus Terminal — 40 min direct'},
-     {dest:'Kyoto (Shinkansen)',time:'2h 25 min',note:'JR Chuo to Tokyo Station or bus to Shinagawa'},
-   ]
-  },
-];
+]
 
 var stayStatus = LS.get('tk_stay_status', 'searching');
 var stayNotesList = LS.get('tk_stay_notes', []);
@@ -1176,6 +1398,7 @@ function renderStay(){
 applyDark();
 initDate();
 render();
+initPacking();
 </script>
 </body>
 </html>
