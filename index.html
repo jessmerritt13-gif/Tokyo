@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-<title>Tokyo — Oct 2026 · v1.6</title>
+<title>Tokyo — Oct 2026 · v1.7</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -222,6 +222,296 @@ body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;f
 </div>
 
 <!-- STAY TAB -->
+<!-- PACKING TAB -->
+<div class="section" id="tab-packing">
+  <div style="padding:28px 0 8px">
+    <h2 style="font-family:'Playfair Display',serif;font-size:28px;font-weight:400;color:var(--ink)">Packing List</h2>
+    <p style="font-size:13px;color:var(--ink3);margin-top:4px">Check off as you pack</p>
+  </div>
+  <div style="display:flex;gap:8px;margin-bottom:16px">
+    <button id="pack-btn-jess" onclick="showPacker('jess')" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--ink);background:var(--ink);color:var(--paper);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;font-weight:500">Jess</button>
+    <button id="pack-btn-jack" onclick="showPacker('jack')" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--paper3);background:none;color:var(--ink3);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer">Jack</button>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:20px">
+    <div style="flex:1;height:3px;background:var(--paper3);border-radius:2px;overflow:hidden">
+      <div id="pack-fill" style="height:100%;background:var(--ink);border-radius:2px;transition:width .4s ease;width:0%"></div>
+    </div>
+    <div style="font-size:12px;color:var(--ink3);white-space:nowrap" id="pack-count">0 / 32</div>
+  </div>
+  <div id="pack-jess">
+  <div class="pack-section">
+    <div class="pack-section-title">Documents</div>
+    <div class="task" onclick="tapPack('jess',0,0)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jess-0-0"></div>
+      <div class="task-text" id="pack-txt-jess-0-0">Passport — valid 6+ months past Oct 2026</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',0,1)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jess-0-1"></div>
+      <div class="task-text" id="pack-txt-jess-0-1">Flight confirmation screenshot</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',0,2)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jess-0-2"></div>
+      <div class="task-text" id="pack-txt-jess-0-2">Accommodation confirmation</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',0,3)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jess-0-3"></div>
+      <div class="task-text" id="pack-txt-jess-0-3">Chase Sapphire Reserve card</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',0,4)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jess-0-4"></div>
+      <div class="task-text" id="pack-txt-jess-0-4">Travel insurance info</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',0,5)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jess-0-5"></div>
+      <div class="task-text" id="pack-txt-jess-0-5">Emergency contacts written down</div>
+    </div>
+  </div>
+  <div class="pack-section">
+    <div class="pack-section-title">Money</div>
+    <div class="task" onclick="tapPack('jess',1,0)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jess-1-0"></div>
+      <div class="task-text" id="pack-txt-jess-1-0">Yen cash — at least 30,000 yen</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',1,1)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jess-1-1"></div>
+      <div class="task-text" id="pack-txt-jess-1-1">Backup debit card</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',1,2)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jess-1-2"></div>
+      <div class="task-text" id="pack-txt-jess-1-2">Suica card (get at Haneda on arrival)</div>
+    </div>
+  </div>
+  <div class="pack-section">
+    <div class="pack-section-title">Tech</div>
+    <div class="task" onclick="tapPack('jess',2,0)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jess-2-0"></div>
+      <div class="task-text" id="pack-txt-jess-2-0">Phone + charger</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',2,1)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jess-2-1"></div>
+      <div class="task-text" id="pack-txt-jess-2-1">Portable power bank</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',2,2)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jess-2-2"></div>
+      <div class="task-text" id="pack-txt-jess-2-2">Noise canceling headphones for flight</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',2,3)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jess-2-3"></div>
+      <div class="task-text" id="pack-txt-jess-2-3">Google Translate — Japanese pack offline</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',2,4)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jess-2-4"></div>
+      <div class="task-text" id="pack-txt-jess-2-4">DisneySea app downloaded</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',2,5)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jess-2-5"></div>
+      <div class="task-text" id="pack-txt-jess-2-5">Tokyo Metro app downloaded</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',2,6)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jess-2-6"></div>
+      <div class="task-text" id="pack-txt-jess-2-6">International roaming or Airalo eSIM loaded</div>
+    </div>
+  </div>
+  <div class="pack-section">
+    <div class="pack-section-title">Clothes</div>
+    <div class="task" onclick="tapPack('jess',3,0)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jess-3-0"></div>
+      <div class="task-text" id="pack-txt-jess-3-0">7 days of clothes — dressy-casual</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',3,1)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jess-3-1"></div>
+      <div class="task-text" id="pack-txt-jess-3-1">Comfortable walking shoes — 15k steps/day</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',3,2)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jess-3-2"></div>
+      <div class="task-text" id="pack-txt-jess-3-2">Slip-on shoes — temples require shoe removal</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',3,3)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jess-3-3"></div>
+      <div class="task-text" id="pack-txt-jess-3-3">Light jacket — October evenings get cool</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',3,4)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jess-3-4"></div>
+      <div class="task-text" id="pack-txt-jess-3-4">Compression socks for the 14hr flight</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',3,5)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jess-3-5"></div>
+      <div class="task-text" id="pack-txt-jess-3-5">One nicer outfit for Golden Gai night</div>
+    </div>
+  </div>
+  <div class="pack-section">
+    <div class="pack-section-title">Health</div>
+    <div class="task" onclick="tapPack('jess',4,0)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jess-4-0"></div>
+      <div class="task-text" id="pack-txt-jess-4-0">Any prescription medications</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',4,1)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jess-4-1"></div>
+      <div class="task-text" id="pack-txt-jess-4-1">Ibuprofen / pain relief</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',4,2)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jess-4-2"></div>
+      <div class="task-text" id="pack-txt-jess-4-2">Knee brace if needed for walking days</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',4,3)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jess-4-3"></div>
+      <div class="task-text" id="pack-txt-jess-4-3">Blister bandages — essential</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',4,4)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jess-4-4"></div>
+      <div class="task-text" id="pack-txt-jess-4-4">Sunscreen</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',4,5)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jess-4-5"></div>
+      <div class="task-text" id="pack-txt-jess-4-5">Deodorant — hard to find Western brands there</div>
+    </div>
+  </div>
+  <div class="pack-section">
+    <div class="pack-section-title">Nice to Have</div>
+    <div class="task" onclick="tapPack('jess',5,0)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jess-5-0"></div>
+      <div class="task-text" id="pack-txt-jess-5-0">Small day backpack</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',5,1)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jess-5-1"></div>
+      <div class="task-text" id="pack-txt-jess-5-1">Collapsible umbrella</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',5,2)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jess-5-2"></div>
+      <div class="task-text" id="pack-txt-jess-5-2">Empty bag for souvenirs</div>
+    </div>
+    <div class="task" onclick="tapPack('jess',5,3)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jess-5-3"></div>
+      <div class="task-text" id="pack-txt-jess-5-3">Earplugs for flight</div>
+    </div>
+  </div>
+  </div>
+  <div id="pack-jack" style="display:none">
+  <div class="pack-section">
+    <div class="pack-section-title">Documents</div>
+    <div class="task" onclick="tapPack('jack',0,0)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jack-0-0"></div>
+      <div class="task-text" id="pack-txt-jack-0-0">Passport — valid 6+ months past Oct 2026</div>
+    </div>
+    <div class="task" onclick="tapPack('jack',0,1)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jack-0-1"></div>
+      <div class="task-text" id="pack-txt-jack-0-1">Student ID (useful for some discounts)</div>
+    </div>
+    <div class="task" onclick="tapPack('jack',0,2)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jack-0-2"></div>
+      <div class="task-text" id="pack-txt-jack-0-2">Flight confirmation screenshot</div>
+    </div>
+    <div class="task" onclick="tapPack('jack',0,3)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jack-0-3"></div>
+      <div class="task-text" id="pack-txt-jack-0-3">Emergency contacts</div>
+    </div>
+  </div>
+  <div class="pack-section">
+    <div class="pack-section-title">Money</div>
+    <div class="task" onclick="tapPack('jack',1,0)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jack-1-0"></div>
+      <div class="task-text" id="pack-txt-jack-1-0">Yen cash — at least 20,000 yen</div>
+    </div>
+    <div class="task" onclick="tapPack('jack',1,1)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jack-1-1"></div>
+      <div class="task-text" id="pack-txt-jack-1-1">Debit or credit card for emergencies</div>
+    </div>
+  </div>
+  <div class="pack-section">
+    <div class="pack-section-title">Tech</div>
+    <div class="task" onclick="tapPack('jack',2,0)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jack-2-0"></div>
+      <div class="task-text" id="pack-txt-jack-2-0">Phone + charger</div>
+    </div>
+    <div class="task" onclick="tapPack('jack',2,1)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jack-2-1"></div>
+      <div class="task-text" id="pack-txt-jack-2-1">Portable power bank</div>
+    </div>
+    <div class="task" onclick="tapPack('jack',2,2)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jack-2-2"></div>
+      <div class="task-text" id="pack-txt-jack-2-2">Headphones for flight</div>
+    </div>
+    <div class="task" onclick="tapPack('jack',2,3)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jack-2-3"></div>
+      <div class="task-text" id="pack-txt-jack-2-3">Google Translate — Japanese pack offline</div>
+    </div>
+    <div class="task" onclick="tapPack('jack',2,4)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jack-2-4"></div>
+      <div class="task-text" id="pack-txt-jack-2-4">DisneySea app downloaded</div>
+    </div>
+    <div class="task" onclick="tapPack('jack',2,5)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jack-2-5"></div>
+      <div class="task-text" id="pack-txt-jack-2-5">Tokyo Metro app downloaded</div>
+    </div>
+    <div class="task" onclick="tapPack('jack',2,6)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jack-2-6"></div>
+      <div class="task-text" id="pack-txt-jack-2-6">International roaming or Airalo eSIM loaded</div>
+    </div>
+  </div>
+  <div class="pack-section">
+    <div class="pack-section-title">Clothes</div>
+    <div class="task" onclick="tapPack('jack',3,0)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jack-3-0"></div>
+      <div class="task-text" id="pack-txt-jack-3-0">7 days of clothes</div>
+    </div>
+    <div class="task" onclick="tapPack('jack',3,1)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jack-3-1"></div>
+      <div class="task-text" id="pack-txt-jack-3-1">Comfortable walking shoes</div>
+    </div>
+    <div class="task" onclick="tapPack('jack',3,2)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jack-3-2"></div>
+      <div class="task-text" id="pack-txt-jack-3-2">Slip-on shoes for temples</div>
+    </div>
+    <div class="task" onclick="tapPack('jack',3,3)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jack-3-3"></div>
+      <div class="task-text" id="pack-txt-jack-3-3">Light jacket</div>
+    </div>
+    <div class="task" onclick="tapPack('jack',3,4)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jack-3-4"></div>
+      <div class="task-text" id="pack-txt-jack-3-4">One decent outfit for Golden Gai</div>
+    </div>
+  </div>
+  <div class="pack-section">
+    <div class="pack-section-title">Health</div>
+    <div class="task" onclick="tapPack('jack',4,0)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jack-4-0"></div>
+      <div class="task-text" id="pack-txt-jack-4-0">Any personal medications</div>
+    </div>
+    <div class="task" onclick="tapPack('jack',4,1)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jack-4-1"></div>
+      <div class="task-text" id="pack-txt-jack-4-1">Ibuprofen</div>
+    </div>
+    <div class="task" onclick="tapPack('jack',4,2)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jack-4-2"></div>
+      <div class="task-text" id="pack-txt-jack-4-2">Blister bandages</div>
+    </div>
+    <div class="task" onclick="tapPack('jack',4,3)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jack-4-3"></div>
+      <div class="task-text" id="pack-txt-jack-4-3">Sunscreen</div>
+    </div>
+  </div>
+  <div class="pack-section">
+    <div class="pack-section-title">Nice to Have</div>
+    <div class="task" onclick="tapPack('jack',5,0)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jack-5-0"></div>
+      <div class="task-text" id="pack-txt-jack-5-0">Day backpack</div>
+    </div>
+    <div class="task" onclick="tapPack('jack',5,1)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jack-5-1"></div>
+      <div class="task-text" id="pack-txt-jack-5-1">Collapsible umbrella</div>
+    </div>
+    <div class="task" onclick="tapPack('jack',5,2)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jack-5-2"></div>
+      <div class="task-text" id="pack-txt-jack-5-2">Camera if bringing one</div>
+    </div>
+    <div class="task" onclick="tapPack('jack',5,3)" style="cursor:pointer">
+      <div class="task-check" id="pack-chk-jack-5-3"></div>
+      <div class="task-text" id="pack-txt-jack-5-3">Empty bag for souvenirs</div>
+    </div>
+  </div>
+  </div>
+</div>
+
 <div class="section" id="tab-stay">
   <div style="padding:28px 0 16px">
     <h2 style="font-family:'Playfair Display',serif;font-size:28px;font-weight:400;color:var(--ink)">Where We Stay</h2>
@@ -823,7 +1113,7 @@ function deletePhoto(di, pi) {
 
 
 // DARK MODE
-var APP_VERSION = '1.6';
+var APP_VERSION = '1.7';
 var savedVersion = LS.get('tk_version', '0');
 // If version changed, could reset state here in future
 LS.set('tk_version', APP_VERSION);
